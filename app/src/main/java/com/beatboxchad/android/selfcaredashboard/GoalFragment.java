@@ -7,7 +7,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.ToggleButton;
 
 /**
  * Created by chad on 12/22/17.
@@ -16,6 +19,8 @@ import android.widget.EditText;
 public class GoalFragment extends Fragment {
     private Goal mGoal;
     private EditText mTitleField;
+    private ToggleButton mPolarityField;
+    private NumberPicker mInterval;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,13 +31,10 @@ public class GoalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_goal, container, false);
-        return v;
-
 
         View v = inflater.inflate(R.layout.fragment_goal, container, false);
 
-        mTitleField = (EditText) v.findViewById(R.id.crime_title);
+        mTitleField = (EditText) v.findViewById(R.id.goal_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(
@@ -51,6 +53,28 @@ public class GoalFragment extends Fragment {
                 // This one too
             }
         });
-    }
 
+        mPolarityField = (ToggleButton) v.findViewById(R.id.goal_polarity);
+        mPolarityField.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mGoal.setPolarity(true);
+                } else {
+                    mGoal.setPolarity(false);
+                }
+            }
+        });
+
+        mInterval = (NumberPicker) v.findViewById(R.id.goal_interval);
+        mInterval.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                mGoal.setInterval(newVal);
+            }
+        });
+
+        return v;
+
+    }
 }
