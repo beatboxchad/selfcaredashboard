@@ -1,4 +1,4 @@
-package com.bignerdranch.android.selfcaredashboard;
+package com.beatboxchad.android.selfcaredashboard;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.bignerdranch.android.selfcaredashboard", appContext.getPackageName());
+        assertEquals("com.beatboxchad.android.selfcaredashboard", appContext.getPackageName());
     }
 }

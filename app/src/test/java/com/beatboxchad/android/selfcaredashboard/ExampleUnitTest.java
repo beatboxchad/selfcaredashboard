@@ -1,4 +1,4 @@
-package com.bignerdranch.android.selfcaredashboard;
+package com.beatboxchad.android.selfcaredashboard;
 
 import org.junit.Test;
 

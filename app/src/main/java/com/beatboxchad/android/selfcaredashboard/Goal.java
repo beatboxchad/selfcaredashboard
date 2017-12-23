@@ -1,6 +1,4 @@
-package com.bignerdranch.android.selfcaredashboard;
-
-import android.icu.util.DateInterval;
+package com.beatboxchad.android.selfcaredashboard;
 
 import java.util.UUID;
 
@@ -42,8 +40,6 @@ public class Goal {
     public void setPolarity(boolean polarity) {
         this.polarity = polarity;
     }
-
-
 
     public Goal() {
         mId = UUID.randomUUID();
