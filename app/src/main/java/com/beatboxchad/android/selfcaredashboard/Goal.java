@@ -15,6 +15,14 @@ public class Goal {
     private boolean mPolarity; // true for chase, false for avoid
     private Date mCreateTime; //
 
+    public void setCreateTime(Date createTime) {
+        mCreateTime = createTime;
+    }
+
+    public void setId(UUID id) {
+        mId = id;
+    }
+
     public Date getCreateTime() { return mCreateTime; }
 
     public UUID getId() {
