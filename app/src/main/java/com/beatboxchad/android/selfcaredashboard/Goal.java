@@ -1,5 +1,6 @@
 package com.beatboxchad.android.selfcaredashboard;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -10,13 +11,16 @@ public class Goal {
 
     private UUID mId;
     private String mTitle;
-    private int interval; // goal interval in days
-    private boolean polarity; // true for chase, false for avoid
+    private int mInterval; // goal mInterval in days
+    private boolean mPolarity; // true for chase, false for avoid
+    private Date mCreateTime; //
 
+    public Date getCreateTime() { return mCreateTime; }
 
     public UUID getId() {
         return mId;
     }
+
     public String getTitle() {
         return mTitle;
     }
@@ -26,19 +30,19 @@ public class Goal {
     }
 
     public int getInterval() {
-        return interval;
+        return mInterval;
     }
 
     public void setInterval(int interval) {
-        this.interval = interval;
+        this.mInterval = interval;
     }
 
     public boolean isPolarity() {
-        return polarity;
+        return mPolarity;
     }
 
     public void setPolarity(boolean polarity) {
-        this.polarity = polarity;
+        this.mPolarity = polarity;
     }
 
     public Goal() {
