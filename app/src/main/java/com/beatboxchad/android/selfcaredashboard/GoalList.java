@@ -14,20 +14,27 @@ public class GoalList {
 
     private List<Goal> mGoals;
 
+
+    public static GoalList get(Context context) {
+        if (sGoalList == null) {
+            sGoalList = new GoalList(context);
+        }
+        return sGoalList;
+
+    }
+
     private GoalList(Context context) {
         mGoals = new ArrayList<>();
         // load the goals from storage (eventually, TODO replace these stand-ins)
         for (int i = 0; i < 5; i++) {
             Goal goal = new Goal();
             goal.setTitle("Goal #" + i);
-            goal.setPolarity(i % 2 == 0); // Every other one
+            goal.setPolarity(i % 2 == 0);
+            goal.setInterval(i);
             mGoals.add(goal);
         }
     }
 
-    public static GoalList get(Context context) {
-        return sGoalList; // I think?
-    }
 
     public List<Goal> getGoals() {
         return mGoals;
