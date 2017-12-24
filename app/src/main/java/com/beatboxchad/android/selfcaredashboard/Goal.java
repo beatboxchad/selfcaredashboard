@@ -1,5 +1,7 @@
 package com.beatboxchad.android.selfcaredashboard;
 
+import android.databinding.BaseObservable;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -7,23 +9,23 @@ import java.util.UUID;
  * Created by chad on 12/21/17.
  */
 
-public class Goal {
+public class Goal extends BaseObservable {
 
     private UUID mId;
     private String mTitle;
     private int mInterval; // goal mInterval in days
     private boolean mPolarity; // true for chase, false for avoid
-    private Date mCreateTime; //
+    private Date mTouched; //
 
-    public void setCreateTime(Date createTime) {
-        mCreateTime = createTime;
+    public void setTouched(Date touched) {
+        mTouched = touched;
     }
 
     public void setId(UUID id) {
         mId = id;
     }
 
-    public Date getCreateTime() { return mCreateTime; }
+    public Date getTouched() { return mTouched; }
 
     public UUID getId() {
         return mId;
