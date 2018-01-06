@@ -1,49 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:id="@+id/linearLayout"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             android:orientation="vertical"
-                                             android:padding="8dp">
+<layout>
+    <data>
+        <variable name="viewModel" type="com.beatboxchad.android.selfcaredashboard.GoalViewModel" />
+    </data>
 
-    <TextView
-        android:id="@id/goal_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Goal Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="19dp"
-        tools:layout_conversion_absoluteWidth="368dp"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onLongClick="@{() -> viewModel.onGoalLongClicked()}"
+        >
+        <CheckBox
+            android:id="@+id/polarity_check_box"
+            android:checked="@{viewModel.polarity}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/list_item_padding"/>
 
-    <TextView
-        android:id="@id/goal_interval"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="116dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Goal Interval"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/goal_title"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="19dp"
-        tools:layout_conversion_absoluteWidth="368dp"/>
+        <TextView
+            android:id="@+id/title_text_view"
+            android:text="@{viewModel.title}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/polarity_check_box"
+            android:textStyle="bold"
+            tools:text="Goal Title"
+            android:padding="@dimen/list_item_padding"/>
 
-    <TextView
-        android:id="@id/goal_polarity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Goal Polarity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_conversion_absoluteHeight="19dp"
-        tools:layout_conversion_absoluteWidth="368dp"/>
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/date_text_view"
+            android:text="polarity is broken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/polarity_check_box"
+            android:layout_below="@id/title_text_view"
+            tools:text="Goal Date"
+            android:padding="@{@dimen/list_item_padding * 2}"/>
+
+    </RelativeLayout>
+</layout>

@@ -1,40 +1,37 @@
 package com.beatboxchad.android.selfcaredashboard;
 
 import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by chad on 12/22/17.
- */
-
 public class GoalList {
-    private static GoalList sGoalList;
+    private static com.beatboxchad.android.selfcaredashboard.GoalList sGoalList;
 
-    private List<Goal> mGoals;
+    private ArrayList<Goal> mGoals;
 
-
-    public static GoalList get(Context context) {
+    public static com.beatboxchad.android.selfcaredashboard.GoalList get(Context context) {
         if (sGoalList == null) {
-            sGoalList = new GoalList(context);
+            sGoalList = new com.beatboxchad.android.selfcaredashboard.GoalList(context);
         }
         return sGoalList;
-
     }
 
     private GoalList(Context context) {
         mGoals = new ArrayList<>();
-        // load the goals from storage (eventually, TODO replace these stand-ins)
-        for (int i = 0; i < 5; i++) {
+
+        for (int i = 0; i < 100; i++) {
             Goal goal = new Goal();
-            goal.setTitle("Goal #" + i);
             goal.setPolarity(i % 2 == 0);
-            goal.setInterval(i);
+            goal.setTitle("Case #" + (i + 1));
             mGoals.add(goal);
         }
     }
 
+    public void addGoal(Goal c) {
+        mGoals.add(c);
+    }
 
     public List<Goal> getGoals() {
         return mGoals;
