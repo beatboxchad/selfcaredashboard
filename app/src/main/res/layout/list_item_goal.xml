@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="com.beatboxchad.android.selfcaredashboard.GoalViewModel" />
+        <variable
+            name="viewModel"
+            type="com.beatboxchad.android.selfcaredashboard.GoalViewModel"/>
     </data>
-
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onLongClick="@{() -> viewModel.onGoalLongClicked()}"
-        >
-        <CheckBox
+                    android:layout_height="wrap_content">
+        <Button
             android:id="@+id/polarity_check_box"
-            android:checked="@{viewModel.polarity}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:padding="@dimen/list_item_padding"/>
+            android:onClick="@{() -> viewModel.editGoal()}"
+            android:padding="@dimen/list_item_padding"
+            android:text="Edit"/>
 
         <TextView
             android:id="@+id/title_text_view"
-            android:text="@{viewModel.title}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/polarity_check_box"
-            android:textStyle="bold"
-            tools:text="Goal Title"
-            android:padding="@dimen/list_item_padding"/>
+            android:padding="@dimen/list_item_padding"
+            android:text="@{viewModel.title}"
+            android:textColor="@{viewModel.color}"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/date_text_view"
-            android:text="polarity is broken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/polarity_check_box"
             android:layout_below="@id/title_text_view"
-            tools:text="Goal Date"
-            android:padding="@{@dimen/list_item_padding * 2}"/>
-
+            android:layout_toLeftOf="@id/polarity_check_box"
+            android:padding="@{@dimen/list_item_padding * 2}"
+            android:text="@{`Date touched: ` + viewModel.renderedDate ?? `(not polarity)`}"/>
     </RelativeLayout>
 </layout>
