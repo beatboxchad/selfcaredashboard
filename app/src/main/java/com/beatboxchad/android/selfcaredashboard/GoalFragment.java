@@ -15,7 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 public class GoalFragment extends Fragment {
@@ -76,7 +76,7 @@ public class GoalFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment
-                        .newInstance(mGoal.getDate());
+                        .newInstance(mGoal.getTouched());
                 dialog.setTargetFragment(GoalFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
             }
@@ -103,12 +103,12 @@ public class GoalFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mGoal.setDate(date);
+            mGoal.setTouched(date);
             updateDate();
         }
     }
 
     private void updateDate() {
-        mDateButton.setText(mGoal.getDate().toString());
+        mDateButton.setText(mGoal.getTouched().toString());
     }
 }

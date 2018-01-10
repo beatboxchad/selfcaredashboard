@@ -8,8 +8,8 @@ import android.widget.TextView;
  */
 
 public class BindingAdapters {
-    @BindingAdapter("android:textColor")
+    @BindingAdapter("android:backgroundColor")
     public static void customGoalColor(TextView textView, int color) {
-        textView.setTextColor(color);
+        textView.setBackgroundColor(color);
     }
 }

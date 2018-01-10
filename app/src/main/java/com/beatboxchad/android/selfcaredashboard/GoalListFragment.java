@@ -30,7 +30,7 @@ public class GoalListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -126,12 +126,12 @@ public class GoalListFragment extends Fragment {
     public class GoalHolder extends RecyclerView.ViewHolder {
 
         private final ListItemGoalBinding mBinding;
-        private final GoalViewModel mGoalViewModel;
+        private final ListItemGoal mGoalViewModel;
 
 
         public GoalHolder(ListItemGoalBinding binding) {
             super(binding.getRoot());
-            mGoalViewModel = new GoalViewModel(getActivity());
+            mGoalViewModel = new ListItemGoal(getActivity());
             binding.setViewModel(mGoalViewModel);
             mBinding = binding;
         }

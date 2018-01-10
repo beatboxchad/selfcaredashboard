@@ -1,8 +1,6 @@
 package com.beatboxchad.android.selfcaredashboard;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
 
 /**
@@ -60,6 +58,6 @@ public class Goal {
         mTitle  = "moo";
         mPolarity = false;
         mInterval = 2;
-        mTouched = new Timestamp(System.currentTimeMillis());
+        mTouched = new Date(System.currentTimeMillis() - (86400000));
     }
 }

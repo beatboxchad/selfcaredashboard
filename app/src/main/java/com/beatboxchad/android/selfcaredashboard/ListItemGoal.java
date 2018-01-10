@@ -4,16 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
 import android.graphics.Color;
-import android.widget.TextView;
 
-public class GoalViewModel extends BaseObservable {
+import java.sql.Date;
+
+public class ListItemGoal extends BaseObservable {
     private Goal mGoal;
     private Activity mActivity;
-    private String mGoalColor;
+    private int mGoalColor;
 
-    public GoalViewModel(Activity activity) {
+    public ListItemGoal(Activity activity) {
         mActivity = activity;
     }
 
@@ -27,11 +27,6 @@ public class GoalViewModel extends BaseObservable {
         return mGoal.getTouched().toString();
     }
 
-    @Bindable
-    public boolean isPolarity() {
-        return mGoal.isPolarity();
-    }
-
     public Goal getGoal() {
         return mGoal;
     }
@@ -41,26 +36,22 @@ public class GoalViewModel extends BaseObservable {
         notifyChange();
     }
 
+    //TODO not sure if this belongs here
     public void editGoal() {
         Intent intent = GoalPagerActivity.newIntent(mActivity, mGoal.getId());
         mActivity.startActivity(intent);
     }
 
-    // set it on the goal's TextView here. Basically I have to tell the binding library
-    // how to bind it. There's not a built-in adapter.
-    @BindingAdapter("android:textColor")
-    public static void customGoalColor(TextView textView, String color) {
-        textView.setTextColor(Color.parseColor(color));
-    }
-
     private void calcColor() {
-        // do your logarithmic fade based on polarity, interval, and touched.
-        // and put it in mColor
-        mGoalColor = "#0000FF";
+        long diff = new Date(System.currentTimeMillis()).getTime() - mGoal.getTouched().getTime();
+        float diffInDays = diff / 1000 / 60 / 60 / 24;
+        float percent = (diffInDays / mGoal.getInterval());
+        float hue = mGoal.isPolarity() ? 120 * percent : 120 - (120 * percent);
+        mGoalColor = Color.HSVToColor(new float[]{hue, 1, 1});
     }
 
     @Bindable
-    public String getColor() {
+    public int getColor() {
         calcColor();
         notifyPropertyChanged(BR.color);
         return mGoalColor;

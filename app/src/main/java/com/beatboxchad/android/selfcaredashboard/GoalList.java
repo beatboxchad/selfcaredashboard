@@ -2,6 +2,7 @@ package com.beatboxchad.android.selfcaredashboard;
 
 import android.content.Context;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,11 +21,13 @@ public class GoalList {
 
     private GoalList(Context context) {
         mGoals = new ArrayList<>();
-
-        for (int i = 0; i < 100; i++) {
+// TODO load goals from sqlite storage
+        for (int i = 0; i < 10; i++) {
             Goal goal = new Goal();
             goal.setPolarity(i % 2 == 0);
-            goal.setTitle("Case #" + (i + 1));
+            goal.setTitle("Goal #" + (i + 1));
+            goal.setTouched(new Date(System.currentTimeMillis() - (86400000 * i)));
+            goal.setInterval(i + 1);
             mGoals.add(goal);
         }
     }

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.beatboxchad.android.selfcaredashboard.GoalViewModel"/>
+            type="com.beatboxchad.android.selfcaredashboard.ListItemGoal"/>
     </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
@@ -24,16 +24,7 @@
             android:layout_toLeftOf="@id/polarity_check_box"
             android:padding="@dimen/list_item_padding"
             android:text="@{viewModel.title}"
-            android:textColor="@{viewModel.color}"
+            android:backgroundColor="@{viewModel.color}"
             android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/date_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title_text_view"
-            android:layout_toLeftOf="@id/polarity_check_box"
-            android:padding="@{@dimen/list_item_padding * 2}"
-            android:text="@{`Date touched: ` + viewModel.renderedDate ?? `(not polarity)`}"/>
     </RelativeLayout>
 </layout>

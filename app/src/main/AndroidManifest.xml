@@ -17,5 +17,6 @@
         </activity>
         <activity android:name=".GoalActivity">
         </activity>
+        <activity android:name=".GoalPagerActivity"></activity>
     </application>
 </manifest>
