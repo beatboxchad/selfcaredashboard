@@ -60,7 +60,7 @@ public class GoalListFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
+        outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
     @Override
@@ -126,14 +126,14 @@ public class GoalListFragment extends Fragment {
     public class GoalHolder extends RecyclerView.ViewHolder {
 
         private final ListItemGoalBinding mBinding;
-        private final ListItemGoal mGoalViewModel;
+        private final GoalViewModel mGoalViewModel;
 
 
         public GoalHolder(ListItemGoalBinding binding) {
             super(binding.getRoot());
-            mGoalViewModel = new ListItemGoal(getActivity());
-            binding.setViewModel(mGoalViewModel);
+            mGoalViewModel = new GoalViewModel(getActivity());
             mBinding = binding;
+            mBinding.setViewModel(mGoalViewModel);
         }
 
         public void bindGoal(Goal goal) {

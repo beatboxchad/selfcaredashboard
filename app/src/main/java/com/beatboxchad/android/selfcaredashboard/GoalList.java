@@ -32,8 +32,8 @@ public class GoalList {
         }
     }
 
-    public void addGoal(Goal c) {
-        mGoals.add(c);
+    public void addGoal(Goal g) {
+        mGoals.add(g);
     }
 
     public List<Goal> getGoals() {

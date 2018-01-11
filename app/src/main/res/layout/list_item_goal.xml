@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.beatboxchad.android.selfcaredashboard.ListItemGoal"/>
+            type="com.beatboxchad.android.selfcaredashboard.GoalViewModel"/>
     </data>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:onClick="@{() -> viewModel.editGoal()}"
+            android:onClickListener="@{() -> viewModel.editGoal()}"
             android:padding="@dimen/list_item_padding"
             android:text="Edit"/>
 

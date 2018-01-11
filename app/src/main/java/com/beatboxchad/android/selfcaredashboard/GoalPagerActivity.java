@@ -2,6 +2,8 @@ package com.beatboxchad.android.selfcaredashboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.BaseObservable;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class GoalPagerActivity extends AppCompatActivity {
-
+// get this here viewpager activity wired up for databinding.
     private static final String EXTRA_GOAL_ID =
             "com.beatboxchad.android.selfcaredashboard.goal_id";
 
@@ -29,7 +31,7 @@ public class GoalPagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goal_pager);
+        DataBindingUtil.setContentView(this, R.layout.activity_goal_pager);
 
         UUID goalId = (UUID) getIntent()
                 .getSerializableExtra(EXTRA_GOAL_ID);
