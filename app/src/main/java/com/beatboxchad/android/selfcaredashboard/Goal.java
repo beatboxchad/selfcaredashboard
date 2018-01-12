@@ -56,10 +56,11 @@ public class Goal extends BaseObservable {
     }
 
     public Goal() {
-        mId = UUID.randomUUID();
-        mTitle  = "moo";
-        mPolarity = false;
-        mInterval = 2;
-        mTouched = new Date(System.currentTimeMillis() - (86400000));
+        this(UUID.randomUUID());
+    }
+
+    public Goal(UUID id) {
+        mId = id;
+        mTouched = new Date(System.currentTimeMillis());
     }
 }
