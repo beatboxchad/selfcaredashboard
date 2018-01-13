@@ -7,18 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.beatboxchad.android.selfcaredashboard.database.GoalBaseHelper;
 import com.beatboxchad.android.selfcaredashboard.database.GoalCursorWrapper;
-import com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema;
+import com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema.GoalTable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema.*;
-import static com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema.GoalTable.Cols.INTERVAL;
-import static com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema.GoalTable.Cols.POLARITY;
-import static com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema.GoalTable.Cols.TITLE;
-import static com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema.GoalTable.Cols.TOUCHED;
-import static com.beatboxchad.android.selfcaredashboard.database.GoalDbSchema.GoalTable.Cols.UID;
 
 public class GoalList {
     private static GoalList sGoalList;
@@ -44,34 +38,34 @@ public class GoalList {
         mDatabase.insert(GoalTable.NAME, null, values);
     }
 
+    public void deleteGoal (Goal g) {
+        mDatabase.delete(GoalTable.NAME,
+                GoalTable.Cols.UID + " = ?",
+                new String[] {g.getId().toString()});
+    }
+
     public List<Goal> getGoals() {
         List<Goal> goals = new ArrayList<>();
-        GoalCursorWrapper cursor = queryGoals(null, null);
-        try {
+        try (GoalCursorWrapper cursor = queryGoals(null, null)) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 goals.add(cursor.getGoal());
                 cursor.moveToNext();
             }
-        } finally {
-            cursor.close();
         }
         return goals;
     }
 
     public Goal getGoal(UUID id) {
-        GoalCursorWrapper cursor = queryGoals(
+        try (GoalCursorWrapper cursor = queryGoals(
                 GoalTable.Cols.UID + " = ?",
                 new String[]{id.toString()}
-        );
-        try {
+        )) {
             if (cursor.getCount() == 0) {
                 return null;
             }
             cursor.moveToFirst();
             return cursor.getGoal();
-        } finally {
-            cursor.close();
         }
 
     }
@@ -98,11 +92,11 @@ public class GoalList {
 
     private static ContentValues getContentValues(Goal goal) {
         ContentValues values = new ContentValues();
-        values.put(UID, goal.getId().toString());
-        values.put(TITLE, goal.getTitle());
-        values.put(TOUCHED, goal.getTouched().getTime());
-        values.put(POLARITY, goal.isPolarity() ? 1 : 0);
-        values.put(INTERVAL, goal.getInterval());
+        values.put(GoalTable.Cols.UID, goal.getId().toString());
+        values.put(GoalTable.Cols.TITLE, goal.getTitle());
+        values.put(GoalTable.Cols.TOUCHED, goal.getTouched().getTime());
+        values.put(GoalTable.Cols.POLARITY, goal.isPolarity() ? 1 : 0);
+        values.put(GoalTable.Cols.INTERVAL, goal.getInterval());
         return values;
     }
 
