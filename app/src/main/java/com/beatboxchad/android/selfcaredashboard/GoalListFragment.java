@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.beatboxchad.android.selfcaredashboard.databinding.ListItemGoalBinding;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class GoalListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goal_list, container, false);
 
-        mGoalRecyclerView = (RecyclerView) view
+        mGoalRecyclerView = view
                 .findViewById(R.id.goal_recycler_view);
         mGoalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -110,8 +109,16 @@ public class GoalListFragment extends Fragment {
     }
 
     private void updateUI() {
-        GoalList goalLab = GoalList.get(getActivity());
-        List<Goal> goals = goalLab.getGoals();
+        GoalList goalList = GoalList.get(getActivity());
+        List<Goal> goals = goalList.getGoals();
+
+        //FIXME temporary hack workaround for sloppy work elsewhere.
+        for (Goal goal : goals) {
+            if(goal.getTitle() == "") {
+                goalList.deleteGoal(goal);
+            }
+        }
+
 
         if (mAdapter == null) {
             mAdapter = new GoalAdapter(goals);
@@ -131,7 +138,7 @@ public class GoalListFragment extends Fragment {
 
         public GoalHolder(ListItemGoalBinding binding) {
             super(binding.getRoot());
-            mGoalViewModel = new GoalViewModel(getActivity());
+            mGoalViewModel = new GoalViewModel();
             mBinding = binding;
             mBinding.setViewModel(mGoalViewModel);
         }
@@ -140,7 +147,6 @@ public class GoalListFragment extends Fragment {
             mGoalViewModel.setGoal(goal);
             mBinding.executePendingBindings();
         }
-
     }
 
     private class GoalAdapter extends RecyclerView.Adapter<GoalHolder> {

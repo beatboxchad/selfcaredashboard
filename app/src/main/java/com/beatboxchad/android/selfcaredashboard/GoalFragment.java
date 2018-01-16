@@ -37,7 +37,7 @@ public class GoalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentGoalBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_goal, container, false);
 
-        GoalViewModel viewModel = new GoalViewModel(this.getActivity());
+        GoalViewModel viewModel = new GoalViewModel();
         viewModel.setGoal(mGoal);
         binding.setViewModel(viewModel);
         return binding.getRoot();

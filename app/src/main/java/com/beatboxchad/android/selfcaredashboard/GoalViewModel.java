@@ -1,7 +1,5 @@
 package com.beatboxchad.android.selfcaredashboard;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Color;
@@ -10,11 +8,10 @@ import java.sql.Date;
 
 public class GoalViewModel extends BaseObservable {
     private Goal mGoal;
-    private Activity mActivity;
     private int mGoalColor;
 
-    public GoalViewModel(Activity activity) {
-        mActivity = activity;
+    public GoalViewModel() {
+
     }
 
     @Bindable
@@ -59,6 +56,7 @@ public class GoalViewModel extends BaseObservable {
         notifyChange();
     }
 
+    // FIXME this *might* not belong in the viewmodel.
     private void calcColor() {
         long diff = new Date(System.currentTimeMillis()).getTime() - mGoal.getTouched().getTime();
         float diffInDays = diff / 1000 / 60 / 60 / 24;
@@ -74,10 +72,9 @@ public class GoalViewModel extends BaseObservable {
         return mGoalColor;
     }
 
-    //TODO not sure if this belongs here
-
-    public void editGoal() {
-        Intent intent = GoalPagerActivity.newIntent(mActivity, mGoal.getId());
-        mActivity.startActivity(intent);
-    }
+    //FIXME yeah this definitely doesn't belong in the viewmodel. Will refactor after further reading
+//    public void editGoal() {
+//        Intent intent = GoalPagerActivity.newIntent(mActivity, mGoal.getId());
+//        mActivity.startActivity(intent);
+//    }
 }

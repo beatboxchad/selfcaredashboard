@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class GoalPagerActivity extends AppCompatActivity {
-// get this here viewpager activity wired up for databinding.
     private static final String EXTRA_GOAL_ID =
             "com.beatboxchad.android.selfcaredashboard.goal_id";
 
