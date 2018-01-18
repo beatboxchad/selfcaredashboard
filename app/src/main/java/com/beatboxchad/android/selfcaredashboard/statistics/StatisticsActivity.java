@@ -133,7 +133,7 @@ public class StatisticsActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.list_navigation_menu_item:
-                                NavUtils.navigateUpFromSameGoal(StatisticsActivity.this);
+                                NavUtils.navigateUpFromSameTask(StatisticsActivity.this);
                                 break;
                             case R.id.statistics_navigation_menu_item:
                                 // Do nothing, we're already on that screen
