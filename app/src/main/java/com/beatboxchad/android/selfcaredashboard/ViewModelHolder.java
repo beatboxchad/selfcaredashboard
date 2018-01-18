@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp;
+package com.beatboxchad.android.selfcaredashboard;
 
 
 import android.os.Bundle;

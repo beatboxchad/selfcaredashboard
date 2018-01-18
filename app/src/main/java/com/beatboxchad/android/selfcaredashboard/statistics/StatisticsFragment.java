@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2017, Chad Cassady
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.statistics;
+package com.beatboxchad.android.selfcaredashboard.statistics;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -24,8 +24,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.architecture.blueprints.todoapp.R;
-import com.example.android.architecture.blueprints.todoapp.databinding.StatisticsFragBinding;
+import com.beatboxchad.android.selfcaredashboard.R;
+import com.beatboxchad.android.selfcaredashboard.databinding.StatisticsFragBinding;
 
 /**
  * Main UI for the statistics screen.

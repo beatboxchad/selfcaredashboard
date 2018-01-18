@@ -2,5 +2,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true" android:drawable="@drawable/touchFeedback" />
 
-    <item android:drawable="@drawable/completedTaskBackground" />
+    <item android:drawable="@drawable/completedGoalBackground" />
 </selector>

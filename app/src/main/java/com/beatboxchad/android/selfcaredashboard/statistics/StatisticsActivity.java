@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2017, Chad Cassady
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.statistics;
+package com.beatboxchad.android.selfcaredashboard.statistics;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,13 +27,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.android.architecture.blueprints.todoapp.Injection;
-import com.example.android.architecture.blueprints.todoapp.R;
-import com.example.android.architecture.blueprints.todoapp.ViewModelHolder;
-import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
+import com.beatboxchad.android.selfcaredashboard.Injection;
+import com.beatboxchad.android.selfcaredashboard.R;
+import com.beatboxchad.android.selfcaredashboard.ViewModelHolder;
+import com.beatboxchad.android.selfcaredashboard.util.ActivityUtils;
 
 /**
- * Show statistics for tasks.
+ * Show statistics for goals.
  */
 public class StatisticsActivity extends AppCompatActivity {
 
@@ -85,7 +85,7 @@ public class StatisticsActivity extends AppCompatActivity {
         } else {
             // There is no ViewModel yet, create it.
             StatisticsViewModel viewModel = new StatisticsViewModel(getApplicationContext(),
-                    Injection.provideTasksRepository(getApplicationContext()));
+                    Injection.provideGoalsRepository(getApplicationContext()));
 
             // and bind it to this Activity's lifecycle using the Fragment Manager.
             ActivityUtils.addFragmentToActivity(
@@ -133,7 +133,7 @@ public class StatisticsActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.list_navigation_menu_item:
-                                NavUtils.navigateUpFromSameTask(StatisticsActivity.this);
+                                NavUtils.navigateUpFromSameGoal(StatisticsActivity.this);
                                 break;
                             case R.id.statistics_navigation_menu_item:
                                 // Do nothing, we're already on that screen

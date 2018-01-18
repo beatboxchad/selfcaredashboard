@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2017, Chad Cassady
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp;
+package com.beatboxchad.android.selfcaredashboard;
 
 import android.databinding.BindingAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 
-import com.example.android.architecture.blueprints.todoapp.tasks.TasksViewModel;
+import com.beatboxchad.android.selfcaredashboard.goals.GoalsViewModel;
 
 public class SwipeRefreshLayoutDataBinding {
 
@@ -30,11 +30,11 @@ public class SwipeRefreshLayoutDataBinding {
      */
     @BindingAdapter("android:onRefresh")
     public static void setSwipeRefreshLayoutOnRefreshListener(ScrollChildSwipeRefreshLayout view,
-            final TasksViewModel viewModel) {
+            final GoalsViewModel viewModel) {
         view.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                viewModel.loadTasks(true);
+                viewModel.loadGoals(true);
             }
         });
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2017, Chad Cassady
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.statistics;
+package com.beatboxchad.android.selfcaredashboard.statistics;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -23,11 +23,11 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.VisibleForTesting;
 
-import com.example.android.architecture.blueprints.todoapp.R;
-import com.example.android.architecture.blueprints.todoapp.data.Task;
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource;
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository;
-import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource;
+import com.beatboxchad.android.selfcaredashboard.R;
+import com.beatboxchad.android.selfcaredashboard.data.Goal;
+import com.beatboxchad.android.selfcaredashboard.data.source.GoalsDataSource;
+import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
+import com.beatboxchad.android.selfcaredashboard.util.EspressoIdlingResource;
 
 import java.util.List;
 
@@ -46,18 +46,18 @@ public class StatisticsViewModel extends BaseObservable {
     final ObservableBoolean error = new ObservableBoolean(false);
 
     @VisibleForTesting
-    int mNumberOfActiveTasks = 0;
+    int mNumberOfActiveGoals = 0;
 
     @VisibleForTesting
-    int mNumberOfCompletedTasks = 0;
+    int mNumberOfCompletedGoals = 0;
 
     private Context mContext;
 
-    private final TasksRepository mTasksRepository;
+    private final GoalsRepository mGoalsRepository;
 
-    public StatisticsViewModel(Context context, TasksRepository tasksRepository) {
+    public StatisticsViewModel(Context context, GoalsRepository goalsRepository) {
         mContext = context;
-        mTasksRepository = tasksRepository;
+        mGoalsRepository = goalsRepository;
     }
 
     public void start() {
@@ -71,9 +71,9 @@ public class StatisticsViewModel extends BaseObservable {
         // that the app is busy until the response is handled.
         EspressoIdlingResource.increment(); // App is busy until further notice
 
-        mTasksRepository.getTasks(new TasksDataSource.LoadTasksCallback() {
+        mGoalsRepository.getGoals(new GoalsDataSource.LoadGoalsCallback() {
             @Override
-            public void onTasksLoaded(List<Task> tasks) {
+            public void onGoalsLoaded(List<Goal> goals) {
 
                 // This callback may be called twice, once for the cache and once for loading
                 // the data from the server API, so we check before decrementing, otherwise
@@ -82,7 +82,7 @@ public class StatisticsViewModel extends BaseObservable {
                     EspressoIdlingResource.decrement(); // Set app as idle.
                 }
 
-                computeStats(tasks);
+                computeStats(goals);
             }
 
             @Override
@@ -92,19 +92,19 @@ public class StatisticsViewModel extends BaseObservable {
         });
     }
     /**
-     * Returns a String showing the number of active tasks.
+     * Returns a String showing the number of active goals.
      */
     @Bindable
-    public String getNumberOfActiveTasks() {
-        return mContext.getString(R.string.statistics_active_tasks, mNumberOfActiveTasks);
+    public String getNumberOfActiveGoals() {
+        return mContext.getString(R.string.statistics_active_goals, mNumberOfActiveGoals);
     }
 
     /**
-     * Returns a String showing the number of completed tasks.
+     * Returns a String showing the number of completed goals.
      */
     @Bindable
-    public String getNumberOfCompletedTasks() {
-        return mContext.getString(R.string.statistics_completed_tasks, mNumberOfCompletedTasks);
+    public String getNumberOfCompletedGoals() {
+        return mContext.getString(R.string.statistics_completed_goals, mNumberOfCompletedGoals);
     }
 
     /**
@@ -112,25 +112,25 @@ public class StatisticsViewModel extends BaseObservable {
      */
     @Bindable
     public boolean isEmpty() {
-        return mNumberOfActiveTasks + mNumberOfCompletedTasks == 0;
+        return mNumberOfActiveGoals + mNumberOfCompletedGoals == 0;
     }
 
     /**
      * Called when new data is ready.
      */
-    private void computeStats(List<Task> tasks) {
+    private void computeStats(List<Goal> goals) {
         int completed = 0;
         int active = 0;
 
-        for (Task task : tasks) {
-            if (task.isCompleted()) {
+        for (Goal goal : goals) {
+            if (goal.isCompleted()) {
                 completed += 1;
             } else {
                 active += 1;
             }
         }
-        mNumberOfActiveTasks = active;
-        mNumberOfCompletedTasks = completed;
+        mNumberOfActiveGoals = active;
+        mNumberOfCompletedGoals = completed;
 
         // There are multiple @Bindable fields in this ViewModel, calling notifyChange() will
         // update all the UI elements that depend on them.

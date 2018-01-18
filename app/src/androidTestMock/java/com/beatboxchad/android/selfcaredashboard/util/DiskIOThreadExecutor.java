@@ -1,4 +1,4 @@
-package com.example.android.architecture.blueprints.todoapp.util;
+package com.beatboxchad.android.selfcaredashboard.util;
 
 import android.support.annotation.NonNull;
 
@@ -6,7 +6,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- * Executor that runs a task on a new background thread.
+ * Executor that runs a goal on a new background thread.
  * This implementation is used by the Android instrumentation tests.
  */
 public class DiskIOThreadExecutor implements Executor {

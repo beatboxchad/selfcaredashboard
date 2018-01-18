@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2017, Chad Cassady
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.statistics;
+package com.beatboxchad.android.selfcaredashboard.statistics;
 
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
@@ -22,10 +22,10 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.architecture.blueprints.todoapp.R;
-import com.example.android.architecture.blueprints.todoapp.data.FakeTasksRemoteDataSource;
-import com.example.android.architecture.blueprints.todoapp.data.Task;
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository;
+import com.beatboxchad.android.selfcaredashboard.R;
+import com.beatboxchad.android.selfcaredashboard.data.FakeGoalsRemoteDataSource;
+import com.beatboxchad.android.selfcaredashboard.data.Goal;
+import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -57,12 +57,12 @@ public class StatisticsScreenTest {
             new ActivityTestRule<>(StatisticsActivity.class, true, false);
 
     @Before
-    public void startWithTwoTasks() {
-        // Given some tasks
-        TasksRepository.destroyInstance();
-        FakeTasksRemoteDataSource.getInstance().deleteAllTasks();
-        FakeTasksRemoteDataSource.getInstance().addTasks(new Task("Title1", "", false));
-        FakeTasksRemoteDataSource.getInstance().addTasks(new Task("Title2", "", true));
+    public void startWithTwoGoals() {
+        // Given some goals
+        GoalsRepository.destroyInstance();
+        FakeGoalsRemoteDataSource.getInstance().deleteAllGoals();
+        FakeGoalsRemoteDataSource.getInstance().addGoals(new Goal("Title1", "", false));
+        FakeGoalsRemoteDataSource.getInstance().addGoals(new Goal("Title2", "", true));
 
         // Lazily start the Activity from the ActivityTestRule
         Intent startIntent = new Intent();
@@ -70,13 +70,13 @@ public class StatisticsScreenTest {
     }
 
     @Test
-    public void Tasks_ShowsNonEmptyMessage() throws Exception {
-        // Check that the active and completed tasks text is displayed
-        String expectedActiveTaskText = InstrumentationRegistry.getTargetContext()
-                .getString(R.string.statistics_active_tasks, 1);
-        onView(withText(containsString(expectedActiveTaskText))).check(matches(isDisplayed()));
-        String expectedCompletedTaskText = InstrumentationRegistry.getTargetContext()
-                .getString(R.string.statistics_completed_tasks, 1);
-        onView(withText(containsString(expectedCompletedTaskText))).check(matches(isDisplayed()));
+    public void Goals_ShowsNonEmptyMessage() throws Exception {
+        // Check that the active and completed goals text is displayed
+        String expectedActiveGoalText = InstrumentationRegistry.getTargetContext()
+                .getString(R.string.statistics_active_goals, 1);
+        onView(withText(containsString(expectedActiveGoalText))).check(matches(isDisplayed()));
+        String expectedCompletedGoalText = InstrumentationRegistry.getTargetContext()
+                .getString(R.string.statistics_completed_goals, 1);
+        onView(withText(containsString(expectedCompletedGoalText))).check(matches(isDisplayed()));
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, The Android Open Source Project
+ * Copyright 2017, Chad Cassady
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.statistics;
+package com.beatboxchad.android.selfcaredashboard.statistics;
 
 
 import android.content.Context;
 
-import com.example.android.architecture.blueprints.todoapp.data.Task;
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource;
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository;
+import com.beatboxchad.android.selfcaredashboard.data.Goal;
+import com.beatboxchad.android.selfcaredashboard.data.source.GoalsDataSource;
+import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
 import com.google.common.collect.Lists;
 
 import org.junit.Before;
@@ -42,13 +42,13 @@ import static org.mockito.Mockito.verify;
  */
 public class StatisticsViewModelTest {
 
-    private static List<Task> TASKS;
+    private static List<Goal> GOALS;
 
     @Mock
-    private TasksRepository mTasksRepository;
+    private GoalsRepository mGoalsRepository;
 
     @Captor
-    private ArgumentCaptor<TasksDataSource.LoadTasksCallback> mLoadTasksCallbackCaptor;
+    private ArgumentCaptor<GoalsDataSource.LoadGoalsCallback> mLoadGoalsCallbackCaptor;
 
     private StatisticsViewModel mStatisticsViewModel;
 
@@ -59,54 +59,54 @@ public class StatisticsViewModelTest {
         MockitoAnnotations.initMocks(this);
 
         // Get a reference to the class under test
-        mStatisticsViewModel = new StatisticsViewModel(mock(Context.class), mTasksRepository);
+        mStatisticsViewModel = new StatisticsViewModel(mock(Context.class), mGoalsRepository);
 
-        // We initialise the tasks to 3, with one active and two completed
-        TASKS = Lists.newArrayList(new Task("Title1", "Description1"),
-                new Task("Title2", "Description2", true), new Task("Title3", "Description3", true));
+        // We initialise the goals to 3, with one active and two completed
+        GOALS = Lists.newArrayList(new Goal("Title1", "Description1"),
+                new Goal("Title2", "Description2", true), new Goal("Title3", "Description3", true));
     }
 
     @Test
-    public void loadEmptyTasksFromRepository_CallViewToDisplay() {
-        // Given an initialized StatisticsViewModel with no tasks
-        TASKS.clear();
+    public void loadEmptyGoalsFromRepository_CallViewToDisplay() {
+        // Given an initialized StatisticsViewModel with no goals
+        GOALS.clear();
 
-        // When loading of Tasks is requested
+        // When loading of Goals is requested
         mStatisticsViewModel.loadStatistics();
 
-        // Callback is captured and invoked with stubbed tasks
-        verify(mTasksRepository).getTasks(mLoadTasksCallbackCaptor.capture());
-        mLoadTasksCallbackCaptor.getValue().onTasksLoaded(TASKS);
+        // Callback is captured and invoked with stubbed goals
+        verify(mGoalsRepository).getGoals(mLoadGoalsCallbackCaptor.capture());
+        mLoadGoalsCallbackCaptor.getValue().onGoalsLoaded(GOALS);
 
         // Then progress indicator is hidden and correct data is passed on to the view
         assertEquals(mStatisticsViewModel.isEmpty(), true);
-        assertEquals(mStatisticsViewModel.mNumberOfActiveTasks, 0);
-        assertEquals(mStatisticsViewModel.mNumberOfCompletedTasks, 0);
+        assertEquals(mStatisticsViewModel.mNumberOfActiveGoals, 0);
+        assertEquals(mStatisticsViewModel.mNumberOfCompletedGoals, 0);
     }
 
     @Test
-    public void loadNonEmptyTasksFromRepository_CallViewToDisplay() {
-        // When loading of Tasks is requested
+    public void loadNonEmptyGoalsFromRepository_CallViewToDisplay() {
+        // When loading of Goals is requested
         mStatisticsViewModel.loadStatistics();
 
-        // Callback is captured and invoked with stubbed tasks
-        verify(mTasksRepository).getTasks(mLoadTasksCallbackCaptor.capture());
-        mLoadTasksCallbackCaptor.getValue().onTasksLoaded(TASKS);
+        // Callback is captured and invoked with stubbed goals
+        verify(mGoalsRepository).getGoals(mLoadGoalsCallbackCaptor.capture());
+        mLoadGoalsCallbackCaptor.getValue().onGoalsLoaded(GOALS);
 
         // Then progress indicator is hidden and correct data is passed on to the view
-        assertEquals(mStatisticsViewModel.mNumberOfActiveTasks, 1);
-        assertEquals(mStatisticsViewModel.mNumberOfCompletedTasks, 2);
+        assertEquals(mStatisticsViewModel.mNumberOfActiveGoals, 1);
+        assertEquals(mStatisticsViewModel.mNumberOfCompletedGoals, 2);
     }
 
 
     @Test
-    public void loadStatisticsWhenTasksAreUnavailable_CallErrorToDisplay() {
+    public void loadStatisticsWhenGoalsAreUnavailable_CallErrorToDisplay() {
         // When statistics are loaded
         mStatisticsViewModel.loadStatistics();
 
-        // And tasks data isn't available
-        verify(mTasksRepository).getTasks(mLoadTasksCallbackCaptor.capture());
-        mLoadTasksCallbackCaptor.getValue().onDataNotAvailable();
+        // And goals data isn't available
+        verify(mGoalsRepository).getGoals(mLoadGoalsCallbackCaptor.capture());
+        mLoadGoalsCallbackCaptor.getValue().onDataNotAvailable();
 
         // Then an error message is shown
         assertEquals(mStatisticsViewModel.isEmpty(), true);

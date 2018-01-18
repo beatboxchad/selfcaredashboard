@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.util;
+package com.beatboxchad.android.selfcaredashboard.util;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
 /**
  * Global executor pools for the whole application.
  * <p>
- * Grouping tasks like this avoids the effects of task starvation (e.g. disk reads don't wait behind
+ * Grouping goals like this avoids the effects of goal starvation (e.g. disk reads don't wait behind
  * webservice requests).
  */
 public class AppExecutors {

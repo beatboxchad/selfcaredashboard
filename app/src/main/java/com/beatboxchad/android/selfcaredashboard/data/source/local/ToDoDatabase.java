@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.data.source.local;
+package com.beatboxchad.android.selfcaredashboard.data.source.local;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.android.architecture.blueprints.todoapp.data.Task;
+import com.beatboxchad.android.selfcaredashboard.data.Goal;
 
 /**
- * The Room Database that contains the Task table.
+ * The Room Database that contains the Goal table.
  */
-@Database(entities = {Task.class}, version = 1)
+@Database(entities = {Goal.class}, version = 1)
 public abstract class ToDoDatabase extends RoomDatabase {
 
     private static ToDoDatabase INSTANCE;
 
-    public abstract TasksDao taskDao();
+    public abstract GoalsDao goalDao();
 
     private static final Object sLock = new Object();
 
@@ -39,7 +39,7 @@ public abstract class ToDoDatabase extends RoomDatabase {
         synchronized (sLock) {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                        ToDoDatabase.class, "Tasks.db")
+                        ToDoDatabase.class, "Goals.db")
                         .build();
             }
             return INSTANCE;

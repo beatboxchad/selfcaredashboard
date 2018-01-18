@@ -16,30 +16,30 @@
 
 <resources>
     <string name="app_name">TO-DO-MVVM-DataBinding</string>
-    <string name="add_task">New TO-DO</string>
-    <string name="edit_task">Edit TO-DO</string>
-    <string name="task_marked_complete">Task marked complete</string>
-    <string name="task_marked_active">Task marked active</string>
-    <string name="loading_tasks_error">Error while loading tasks</string>
-    <string name="completed_tasks_cleared">Completed tasks cleared</string>
+    <string name="add_goal">New TO-DO</string>
+    <string name="edit_goal">Edit TO-DO</string>
+    <string name="goal_marked_complete">Goal marked complete</string>
+    <string name="goal_marked_active">Goal marked active</string>
+    <string name="loading_goals_error">Error while loading goals</string>
+    <string name="completed_goals_cleared">Completed goals cleared</string>
     <string name="menu_filter">Filter</string>
     <string name="menu_clear">Clear completed</string>
-    <string name="menu_delete_task">Delete task</string>
+    <string name="menu_delete_goal">Delete goal</string>
     <string name="navigation_view_header_title">TO-DOs</string>
     <string name="title_hint">Title</string>
     <string name="description_hint">Enter your TO-DO here.</string>
-    <string name="empty_task_message">TO DOs cannot be empty</string>
-    <string name="successfully_saved_task_message">TO-DO saved</string>
+    <string name="empty_goal_message">TO DOs cannot be empty</string>
+    <string name="successfully_saved_goal_message">TO-DO saved</string>
     <string name="list_title">TO-DO List</string>
     <string name="statistics_title">Statistics</string>
-    <string name="statistics_no_tasks">You have no tasks.</string>
-    <string name="statistics_active_tasks">Active tasks: %d</string>
-    <string name="statistics_completed_tasks">Completed tasks: %d</string>
+    <string name="statistics_no_goals">You have no goals.</string>
+    <string name="statistics_active_goals">Active goals: %d</string>
+    <string name="statistics_completed_goals">Completed goals: %d</string>
     <string name="statistics_error">Error loading statistics.</string>
     <string name="no_data">No data</string>
     <string name="loading">LOADING</string>
 
-    <string-array name="list_tasks_array">
+    <string-array name="list_goals_array">
         <item>@string/nav_all</item>
         <item>@string/nav_active</item>
         <item>@string/nav_completed</item>
@@ -50,13 +50,13 @@
     <string name="label_all">All TO-DOs</string>
     <string name="label_active">Active TO-DOs</string>
     <string name="label_completed">Completed TO-DOs</string>
-    <string name="no_tasks_all">You have no TO-DOs!</string>
-    <string name="no_tasks_active">You have no active TO-DOs!</string>
-    <string name="no_tasks_completed">You have no completed TO-DOs!</string>
-    <string name="no_tasks_add">Add a TO-DO item +</string>
+    <string name="no_goals_all">You have no TO-DOs!</string>
+    <string name="no_goals_active">You have no active TO-DOs!</string>
+    <string name="no_goals_completed">You have no completed TO-DOs!</string>
+    <string name="no_goals_add">Add a TO-DO item +</string>
     <string name="refresh">Refresh</string>
-    <string name="successfully_deleted_task_message">Task was deleted</string>
-    <string name="successfully_added_task_message">TO-DO added</string>
+    <string name="successfully_deleted_goal_message">Goal was deleted</string>
+    <string name="successfully_added_goal_message">TO-DO added</string>
     <string name="no_data_description"/>
 
 </resources>

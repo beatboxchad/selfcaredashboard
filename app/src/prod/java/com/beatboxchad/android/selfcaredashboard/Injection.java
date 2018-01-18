@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp;
+package com.beatboxchad.android.selfcaredashboard;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource;
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksRepository;
-import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource;
-import com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase;
-import com.example.android.architecture.blueprints.todoapp.data.source.remote.TasksRemoteDataSource;
-import com.example.android.architecture.blueprints.todoapp.util.AppExecutors;
+import com.beatboxchad.android.selfcaredashboard.data.source.GoalsDataSource;
+import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
+import com.beatboxchad.android.selfcaredashboard.data.source.local.GoalsLocalDataSource;
+import com.beatboxchad.android.selfcaredashboard.data.source.local.ToDoDatabase;
+import com.beatboxchad.android.selfcaredashboard.data.source.remote.GoalsRemoteDataSource;
+import com.beatboxchad.android.selfcaredashboard.util.AppExecutors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Enables injection of production implementations for
- * {@link TasksDataSource} at compile time.
+ * {@link GoalsDataSource} at compile time.
  */
 public class Injection {
 
-    public static TasksRepository provideTasksRepository(@NonNull Context context) {
+    public static GoalsRepository provideGoalsRepository(@NonNull Context context) {
         checkNotNull(context);
         ToDoDatabase database = ToDoDatabase.getInstance(context);
-        return TasksRepository.getInstance(TasksRemoteDataSource.getInstance(),
-                TasksLocalDataSource.getInstance(new AppExecutors(),
-                        database.taskDao()));
+        return GoalsRepository.getInstance(GoalsRemoteDataSource.getInstance(),
+                GoalsLocalDataSource.getInstance(new AppExecutors(),
+                        database.goalDao()));
     }
 }

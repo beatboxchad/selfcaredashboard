@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.util;
+package com.beatboxchad.android.selfcaredashboard.util;
 
 import android.support.annotation.NonNull;
 
-import com.example.android.architecture.blueprints.todoapp.util.AppExecutors;
+import com.beatboxchad.android.selfcaredashboard.util.AppExecutors;
 
 import java.util.concurrent.Executor;
 
 /**
- * Allow instant execution of tasks.
+ * Allow instant execution of goals.
  */
 public class SingleExecutors extends AppExecutors {
     private static Executor instant = new Executor() {
