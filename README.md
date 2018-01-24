@@ -11,7 +11,7 @@ For me personally, no matter what's going on I should:
 * avoid sweets entirely for stretches of at least 7 days
 * take my prescribed medication daily
 * avoid alcohol for stretches of at least 5 days
-* bathe at least every 2 days (hey, sometimes a person can malfunction pretty severely)
+* bathe at least every 2 days
 
 ### Using the Self Care Dashboard
 When I go for a run, I long-click the 'go for a run' entry on dashboard. It turns green. Over its configured interval of 4 days, it turns red.
