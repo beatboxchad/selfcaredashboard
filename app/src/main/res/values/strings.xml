@@ -15,9 +15,9 @@
   -->
 
 <resources>
-    <string name="app_name">TO-DO-MVVM-DataBinding</string>
-    <string name="add_goal">New TO-DO</string>
-    <string name="edit_goal">Edit TO-DO</string>
+    <string name="app_name">Self Care Dashboard</string>
+    <string name="add_goal">New Goal</string>
+    <string name="edit_goal">Edit Goal</string>
     <string name="goal_archived">Goal archived</string>
     <string name="goal_marked_active">Goal marked active</string>
     <string name="loading_goals_error">Error while loading goals</string>
@@ -25,12 +25,12 @@
     <string name="menu_filter">Filter</string>
     <string name="menu_clear">Clear polarity</string>
     <string name="menu_delete_goal">Delete goal</string>
-    <string name="navigation_view_header_title">TO-DOs</string>
+    <string name="navigation_view_header_title">Goals</string>
     <string name="title_hint">Title</string>
-    <string name="description_hint">Enter your TO-DO here.</string>
+    <string name="description_hint">Enter your goal here.</string>
     <string name="empty_goal_message">TO DOs cannot be empty</string>
-    <string name="successfully_saved_goal_message">TO-DO saved</string>
-    <string name="list_title">TO-DO List</string>
+    <string name="successfully_saved_goal_message">Goal saved</string>
+    <string name="list_title">Goal List</string>
     <string name="statistics_title">Statistics</string>
     <string name="statistics_no_goals">You have no goals.</string>
     <string name="statistics_active_goals">Active goals: %d</string>
@@ -47,16 +47,16 @@
     <string name="nav_all">All</string>
     <string name="nav_active">Active</string>
     <string name="nav_archived">Archived</string>
-    <string name="label_all">All TO-DOs</string>
-    <string name="label_active">Active TO-DOs</string>
-    <string name="label_archived">Archived TO-DOs</string>
-    <string name="no_goals_all">You have no TO-DOs!</string>
-    <string name="no_goals_active">You have no active TO-DOs!</string>
-    <string name="no_goals_archived">You have no polarity TO-DOs!</string>
-    <string name="no_goals_add">Add a TO-DO item +</string>
+    <string name="label_all">All Goals</string>
+    <string name="label_active">Active Goals</string>
+    <string name="label_archived">Archived Goals</string>
+    <string name="no_goals_all">You have no goals!</string>
+    <string name="no_goals_active">You have no active goals!</string>
+    <string name="no_goals_archived">You have no archived goals!</string>
+    <string name="no_goals_add">Add a goal item +</string>
     <string name="refresh">Refresh</string>
     <string name="successfully_deleted_goal_message">Goal was deleted</string>
-    <string name="successfully_added_goal_message">TO-DO added</string>
+    <string name="successfully_added_goal_message">Goal added</string>
     <string name="no_data_description"/>
 
 </resources>
