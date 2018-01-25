@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Display a grid of {@link Goal}s. User can choose to view all, active or completed goals.
+ * Display a grid of {@link Goal}s. User can choose to view all, active or archived goals.
  */
 public class GoalsFragment extends Fragment {
 
@@ -93,7 +93,7 @@ public class GoalsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_clear:
-                mGoalsViewModel.clearCompletedGoals();
+                mGoalsViewModel.clearArchivedGoals();
                 break;
             case R.id.menu_filter:
                 showFilteringPopUpMenu();
@@ -156,8 +156,8 @@ public class GoalsFragment extends Fragment {
                     case R.id.active:
                         mGoalsViewModel.setFiltering(GoalsFilterType.ACTIVE_GOALS);
                         break;
-                    case R.id.completed:
-                        mGoalsViewModel.setFiltering(GoalsFilterType.COMPLETED_GOALS);
+                    case R.id.archived:
+                        mGoalsViewModel.setFiltering(GoalsFilterType.ARCHIVED_GOALS);
                         break;
                     default:
                         mGoalsViewModel.setFiltering(GoalsFilterType.ALL_GOALS);

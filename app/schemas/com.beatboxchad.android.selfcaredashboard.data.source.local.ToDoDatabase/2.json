@@ -1,0 +1,63 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "f8d8b8f7664fc280bfba987061639f46",
+    "entities": [
+      {
+        "tableName": "goals",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`entryid` TEXT NOT NULL, `title` TEXT, `polarity` INTEGER NOT NULL, `interval` INTEGER NOT NULL, `touched` INTEGER NOT NULL, `archived` INTEGER NOT NULL, PRIMARY KEY(`entryid`))",
+        "fields": [
+          {
+            "fieldPath": "mId",
+            "columnName": "entryid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mTitle",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mPolarity",
+            "columnName": "polarity",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mInterval",
+            "columnName": "interval",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mTouched",
+            "columnName": "touched",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mArchived",
+            "columnName": "archived",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "entryid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f8d8b8f7664fc280bfba987061639f46\")"
+    ]
+  }
+}

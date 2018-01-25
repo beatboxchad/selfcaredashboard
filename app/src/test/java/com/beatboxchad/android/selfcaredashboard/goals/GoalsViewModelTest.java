@@ -82,7 +82,7 @@ public class GoalsViewModelTest {
                 mGoalsRepository, mContext);
         mGoalsViewModel.setNavigator(mGoalsNavigator);
 
-        // We initialise the goals to 3, with one active and two completed
+        // We initialise the goals to 3, with one active and two archived
         GOALS = Lists.newArrayList(new Goal("Title1", "Description1"),
                 new Goal("Title2", "Description2", true), new Goal("Title3", "Description3", true));
     }
@@ -142,10 +142,10 @@ public class GoalsViewModelTest {
     }
 
     @Test
-    public void loadCompletedGoalsFromRepositoryAndLoadIntoView() {
+    public void loadArchivedGoalsFromRepositoryAndLoadIntoView() {
         // Given an initialized GoalsViewModel with initialized goals
         // When loading of Goals is requested
-        mGoalsViewModel.setFiltering(GoalsFilterType.COMPLETED_GOALS);
+        mGoalsViewModel.setFiltering(GoalsFilterType.ARCHIVED_GOALS);
         mGoalsViewModel.loadGoals(true);
 
         // Callback is captured and invoked with stubbed goals
@@ -170,12 +170,12 @@ public class GoalsViewModelTest {
     }
 
     @Test
-    public void clearCompletedGoals_ClearsGoals() {
-        // When completed goals are cleared
-        mGoalsViewModel.clearCompletedGoals();
+    public void clearArchivedGoals_ClearsGoals() {
+        // When archived goals are cleared
+        mGoalsViewModel.clearArchivedGoals();
 
         // Then repository is called and the view is notified
-        verify(mGoalsRepository).clearCompletedGoals();
+        verify(mGoalsRepository).clearArchivedGoals();
         verify(mGoalsRepository).getGoals(any(LoadGoalsCallback.class));
     }
 

@@ -26,12 +26,12 @@ public enum GoalsFilterType {
     ALL_GOALS,
 
     /**
-     * Filters only the active (not completed yet) goals.
+     * Filters only the active (not archived yet) goals.
      */
     ACTIVE_GOALS,
 
     /**
-     * Filters only the completed goals.
+     * Filters only the archived goals.
      */
-    COMPLETED_GOALS
+    ARCHIVED_GOALS
 }

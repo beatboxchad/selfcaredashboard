@@ -36,7 +36,8 @@ public class FakeGoalsRemoteDataSource implements GoalsDataSource {
     private static final Map<String, Goal> GOALS_SERVICE_DATA = new LinkedHashMap<>();
 
     // Prevent direct instantiation.
-    private FakeGoalsRemoteDataSource() {}
+    private FakeGoalsRemoteDataSource() {
+    }
 
     public static FakeGoalsRemoteDataSource getInstance() {
         if (INSTANCE == null) {
@@ -62,19 +63,29 @@ public class FakeGoalsRemoteDataSource implements GoalsDataSource {
     }
 
     @Override
-    public void completeGoal(@NonNull Goal goal) {
-        Goal completedGoal = new Goal(goal.getTitle(), goal.getDescription(), goal.getId(), true);
-        GOALS_SERVICE_DATA.put(goal.getId(), completedGoal);
+    public void archiveGoal(@NonNull Goal goal) {
+        Goal archivedGoal = new Goal(goal.getId(),
+                goal.getTitle(),
+                goal.getPolarity(),
+                goal.getInterval(),
+                goal.getTouched(),
+                true);
+        GOALS_SERVICE_DATA.put(goal.getId(), archivedGoal);
     }
 
     @Override
-    public void completeGoal(@NonNull String goalId) {
+    public void archiveGoal(@NonNull String goalId) {
         // Not required for the remote data source.
     }
 
     @Override
     public void activateGoal(@NonNull Goal goal) {
-        Goal activeGoal = new Goal(goal.getTitle(), goal.getDescription(), goal.getId());
+        Goal activeGoal = new Goal(goal.getId(),
+                goal.getTitle(),
+                goal.getPolarity(),
+                goal.getInterval(),
+                goal.getTouched(),
+                false);
         GOALS_SERVICE_DATA.put(goal.getId(), activeGoal);
     }
 
@@ -84,11 +95,11 @@ public class FakeGoalsRemoteDataSource implements GoalsDataSource {
     }
 
     @Override
-    public void clearCompletedGoals() {
+    public void clearArchivedGoals() {
         Iterator<Map.Entry<String, Goal>> it = GOALS_SERVICE_DATA.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<String, Goal> entry = it.next();
-            if (entry.getValue().isCompleted()) {
+            if (entry.getValue().isArchived()) {
                 it.remove();
             }
         }

@@ -116,7 +116,7 @@ public class GoalItemViewModelTest {
         mLoadGoalsCallbackCaptor.getValue().onGoalLoaded(mGoal); // Trigger callback
 
         // When goal is marked as complete
-        mGoalItemViewModel.setCompleted(true);
+        mGoalItemViewModel.setArchived(true);
 
         // Then repository is called
         verify(mGoalsRepository).completeGoal(mGoal);
@@ -129,7 +129,7 @@ public class GoalItemViewModelTest {
         mLoadGoalsCallbackCaptor.getValue().onGoalLoaded(mGoal); // Trigger callback
 
         // When goal is marked as complete
-        mGoalItemViewModel.setCompleted(false);
+        mGoalItemViewModel.setArchived(false);
 
         // Then repository is called
         verify(mGoalsRepository).activateGoal(mGoal);

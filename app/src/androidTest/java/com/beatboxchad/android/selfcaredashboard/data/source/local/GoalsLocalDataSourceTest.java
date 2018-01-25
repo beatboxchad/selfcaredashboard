@@ -41,6 +41,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Integration test for the {@link GoalsDataSource}.
@@ -86,7 +87,7 @@ public class GoalsLocalDataSourceTest {
     @Test
     public void saveGoal_retrievesGoal() {
         // Given a new goal
-        final Goal newGoal = new Goal(TITLE, "");
+        final Goal newGoal = new Goal(TITLE, 3, false);
 
         // When saved into the persistent repository
         mLocalDataSource.saveGoal(newGoal);
@@ -106,22 +107,22 @@ public class GoalsLocalDataSourceTest {
     }
 
     @Test
-    public void completeGoal_retrievedGoalIsComplete() {
+    public void archiveGoal_retrievedGoalIsArchive() {
         // Initialize mock for the callback.
         GoalsDataSource.GetGoalCallback callback = mock(GoalsDataSource.GetGoalCallback.class);
         // Given a new goal in the persistent repository
-        final Goal newGoal = new Goal(TITLE, "");
+        final Goal newGoal = new Goal(TITLE, 1, false);
         mLocalDataSource.saveGoal(newGoal);
 
-        // When completed in the persistent repository
-        mLocalDataSource.completeGoal(newGoal);
+        // When archived in the persistent repository
+        mLocalDataSource.archiveGoal(newGoal);
 
-        // Then the goal can be retrieved from the persistent repository and is complete
+        // Then the goal can be retrieved from the persistent repository and is archive
         mLocalDataSource.getGoal(newGoal.getId(), new GoalsDataSource.GetGoalCallback() {
             @Override
             public void onGoalLoaded(Goal goal) {
                 assertThat(goal, is(newGoal));
-                assertThat(goal.isCompleted(), is(true));
+                assertThat(goal.isPolarity(), is(true));
             }
 
             @Override
@@ -136,10 +137,10 @@ public class GoalsLocalDataSourceTest {
         // Initialize mock for the callback.
         GoalsDataSource.GetGoalCallback callback = mock(GoalsDataSource.GetGoalCallback.class);
 
-        // Given a new completed goal in the persistent repository
-        final Goal newGoal = new Goal(TITLE, "");
+        // Given a new archived goal in the persistent repository
+        final Goal newGoal = new Goal(TITLE, 1, false);
         mLocalDataSource.saveGoal(newGoal);
-        mLocalDataSource.completeGoal(newGoal);
+        mLocalDataSource.archiveGoal(newGoal);
 
         // When activated in the persistent repository
         mLocalDataSource.activateGoal(newGoal);
@@ -150,30 +151,30 @@ public class GoalsLocalDataSourceTest {
         verify(callback, never()).onDataNotAvailable();
         verify(callback).onGoalLoaded(newGoal);
 
-        assertThat(newGoal.isCompleted(), is(false));
+        assertThat(newGoal.isPolarity(), is(false));
     }
 
     @Test
-    public void clearCompletedGoal_goalNotRetrievable() {
+    public void clearArchivedGoal_goalNotRetrievable() {
         // Initialize mocks for the callbacks.
         GoalsDataSource.GetGoalCallback callback1 = mock(GoalsDataSource.GetGoalCallback.class);
         GoalsDataSource.GetGoalCallback callback2 = mock(GoalsDataSource.GetGoalCallback.class);
         GoalsDataSource.GetGoalCallback callback3 = mock(GoalsDataSource.GetGoalCallback.class);
 
-        // Given 2 new completed goals and 1 active goal in the persistent repository
-        final Goal newGoal1 = new Goal(TITLE, "");
+        // Given 2 new archived goals and 1 active goal in the persistent repository
+        final Goal newGoal1 = new Goal(TITLE);
         mLocalDataSource.saveGoal(newGoal1);
-        mLocalDataSource.completeGoal(newGoal1);
-        final Goal newGoal2 = new Goal(TITLE2, "");
+        mLocalDataSource.archiveGoal(newGoal1);
+        final Goal newGoal2 = new Goal(TITLE2);
         mLocalDataSource.saveGoal(newGoal2);
-        mLocalDataSource.completeGoal(newGoal2);
+        mLocalDataSource.archiveGoal(newGoal2);
         final Goal newGoal3 = new Goal(TITLE3, "");
         mLocalDataSource.saveGoal(newGoal3);
 
-        // When completed goals are cleared in the repository
-        mLocalDataSource.clearCompletedGoals();
+        // When archived goals are cleared in the repository
+        mLocalDataSource.clearArchivedGoals();
 
-        // Then the completed goals cannot be retrieved and the active one can
+        // Then the archived goals cannot be retrieved and the active one can
         mLocalDataSource.getGoal(newGoal1.getId(), callback1);
 
         verify(callback1).onDataNotAvailable();

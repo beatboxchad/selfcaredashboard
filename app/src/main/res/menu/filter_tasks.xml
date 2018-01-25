@@ -21,6 +21,6 @@
         android:id="@+id/active"
         android:title="@string/nav_active" />
     <item
-        android:id="@+id/completed"
-        android:title="@string/nav_completed" />
+        android:id="@+id/polarity"
+        android:title="@string/nav_archived" />
 </menu>

@@ -38,7 +38,9 @@ public abstract class GoalViewModel extends BaseObservable
 
     public final ObservableField<String> title = new ObservableField<>();
 
-    public final ObservableField<String> description = new ObservableField<>();
+    public final ObservableField<Integer> interval = new ObservableField<>();
+
+    public final ObservableField<Boolean> polarity = new ObservableField<>();
 
     private final ObservableField<Goal> mGoalObservable = new ObservableField<>();
 
@@ -59,10 +61,8 @@ public abstract class GoalViewModel extends BaseObservable
                 Goal goal = mGoalObservable.get();
                 if (goal != null) {
                     title.set(goal.getTitle());
-                    description.set(goal.getDescription());
                 } else {
                     title.set(mContext.getString(R.string.no_data));
-                    description.set(mContext.getString(R.string.no_data_description));
                 }
             }
         });
@@ -79,24 +79,24 @@ public abstract class GoalViewModel extends BaseObservable
         mGoalObservable.set(goal);
     }
 
-    // "completed" is two-way bound, so in order to intercept the new value, use a @Bindable
+    // "archived" is two-way bound, so in order to intercept the new value, use a @Bindable
     // annotation and process it in the setter.
     @Bindable
-    public boolean getCompleted() {
+    public boolean getArchived() {
         Goal goal = mGoalObservable.get();
-        return goal != null && goal.isCompleted();
+        return goal != null && goal.isArchived();
     }
 
-    public void setCompleted(boolean completed) {
+    public void setArchived(boolean archived) {
         if (mIsDataLoading) {
             return;
         }
         Goal goal = mGoalObservable.get();
 
         // Notify repository and user
-        if (completed) {
-            mGoalsRepository.completeGoal(goal);
-            snackbarText.set(mContext.getResources().getString(R.string.goal_marked_complete));
+        if (archived) {
+            mGoalsRepository.archiveGoal(goal);
+            snackbarText.set(mContext.getResources().getString(R.string.goal_archived));
         } else {
             mGoalsRepository.activateGoal(goal);
             snackbarText.set(mContext.getResources().getString(R.string.goal_marked_active));

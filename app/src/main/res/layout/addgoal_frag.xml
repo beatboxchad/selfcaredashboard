@@ -56,13 +56,20 @@
                     android:text="@={viewmodel.title}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
-                <EditText
-                    android:id="@+id/add_goal_description"
+                <NumberPicker
+                    android:id="@+id/add_goal_interval"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
                     android:gravity="top"
-                    android:hint="@string/description_hint"
-                    android:text="@={viewmodel.description}"/>
+                    android:value="@={viewmodel.interval}"
+                    android:hint="goal interval"/>
+
+                <ToggleButton
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_gravity="top"
+                    android:checked="@={viewmodel.polarity}"
+                    android:hint="goal polarity"/>
 
             </LinearLayout>
         </ScrollView>

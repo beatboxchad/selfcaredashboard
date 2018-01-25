@@ -136,24 +136,29 @@ public class GoalsRepository implements GoalsDataSource {
     }
 
     @Override
-    public void completeGoal(@NonNull Goal goal) {
+    public void archiveGoal(@NonNull Goal goal) {
         checkNotNull(goal);
-        mGoalsRemoteDataSource.completeGoal(goal);
-        mGoalsLocalDataSource.completeGoal(goal);
+        mGoalsRemoteDataSource.archiveGoal(goal);
+        mGoalsLocalDataSource.archiveGoal(goal);
 
-        Goal completedGoal = new Goal(goal.getTitle(), goal.getDescription(), goal.getId(), true);
+        Goal archivedGoal = new Goal(goal.getId(),
+                goal.getTitle(),
+                goal.getPolarity(),
+                goal.getInterval(),
+                goal.getTouched(),
+                goal.isArchived());
 
         // Do in memory cache update to keep the app UI up to date
         if (mCachedGoals == null) {
             mCachedGoals = new LinkedHashMap<>();
         }
-        mCachedGoals.put(goal.getId(), completedGoal);
+        mCachedGoals.put(goal.getId(), archivedGoal);
     }
 
     @Override
-    public void completeGoal(@NonNull String goalId) {
+    public void archiveGoal(@NonNull String goalId) {
         checkNotNull(goalId);
-        completeGoal(getGoalWithId(goalId));
+        archiveGoal(getGoalWithId(goalId));
     }
 
     @Override
@@ -162,8 +167,12 @@ public class GoalsRepository implements GoalsDataSource {
         mGoalsRemoteDataSource.activateGoal(goal);
         mGoalsLocalDataSource.activateGoal(goal);
 
-        Goal activeGoal = new Goal(goal.getTitle(), goal.getDescription(), goal.getId());
-
+        Goal activeGoal = new Goal(goal.getId(),
+                goal.getTitle(),
+                goal.getPolarity(),
+                goal.getInterval(),
+                goal.getTouched(),
+                false);
         // Do in memory cache update to keep the app UI up to date
         if (mCachedGoals == null) {
             mCachedGoals = new LinkedHashMap<>();
@@ -178,9 +187,9 @@ public class GoalsRepository implements GoalsDataSource {
     }
 
     @Override
-    public void clearCompletedGoals() {
-        mGoalsRemoteDataSource.clearCompletedGoals();
-        mGoalsLocalDataSource.clearCompletedGoals();
+    public void clearArchivedGoals() {
+        mGoalsRemoteDataSource.clearArchivedGoals();
+        mGoalsLocalDataSource.clearArchivedGoals();
 
         // Do in memory cache update to keep the app UI up to date
         if (mCachedGoals == null) {
@@ -189,7 +198,7 @@ public class GoalsRepository implements GoalsDataSource {
         Iterator<Map.Entry<String, Goal>> it = mCachedGoals.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<String, Goal> entry = it.next();
-            if (entry.getValue().isCompleted()) {
+            if (entry.getValue().isArchived()) {
                 it.remove();
             }
         }

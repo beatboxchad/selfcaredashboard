@@ -125,19 +125,19 @@ public class GoalsLocalDataSource implements GoalsDataSource {
     }
 
     @Override
-    public void completeGoal(@NonNull final Goal goal) {
-        Runnable completeRunnable = new Runnable() {
+    public void archiveGoal(@NonNull final Goal goal) {
+        Runnable archiveRunnable = new Runnable() {
             @Override
             public void run() {
-                mGoalsDao.updateCompleted(goal.getId(), true);
+                mGoalsDao.updateArchived(goal.getId(), true);
             }
         };
 
-        mAppExecutors.diskIO().execute(completeRunnable);
+        mAppExecutors.diskIO().execute(archiveRunnable);
     }
 
     @Override
-    public void completeGoal(@NonNull String goalId) {
+    public void archiveGoal(@NonNull String goalId) {
         // Not required for the local data source because the {@link GoalsRepository} handles
         // converting from a {@code goalId} to a {@link goal} using its cached data.
     }
@@ -147,7 +147,7 @@ public class GoalsLocalDataSource implements GoalsDataSource {
         Runnable activateRunnable = new Runnable() {
             @Override
             public void run() {
-                mGoalsDao.updateCompleted(goal.getId(), false);
+                mGoalsDao.updateArchived(goal.getId(), false);
             }
         };
         mAppExecutors.diskIO().execute(activateRunnable);
@@ -160,11 +160,11 @@ public class GoalsLocalDataSource implements GoalsDataSource {
     }
 
     @Override
-    public void clearCompletedGoals() {
+    public void clearArchivedGoals() {
         Runnable clearGoalsRunnable = new Runnable() {
             @Override
             public void run() {
-                mGoalsDao.deleteCompletedGoals();
+                mGoalsDao.deleteArchivedGoals();
 
             }
         };

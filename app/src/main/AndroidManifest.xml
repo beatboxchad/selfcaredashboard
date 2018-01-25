@@ -34,15 +34,6 @@
         </activity>
         <activity android:name="com.beatboxchad.android.selfcaredashboard.goaldetail.GoalDetailActivity" />
         <activity android:name="com.beatboxchad.android.selfcaredashboard.addeditgoal.AddEditGoalActivity" />
-        <activity
-            android:name="com.beatboxchad.android.selfcaredashboard.statistics.StatisticsActivity"
-            android:parentActivityName=".goals.GoalsActivity"
-            tools:ignore="UnusedAttribute">
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".goals.GoalsActivity" />
-        </activity>
     </application>
 
 </manifest>

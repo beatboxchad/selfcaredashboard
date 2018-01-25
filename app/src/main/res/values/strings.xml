@@ -18,12 +18,12 @@
     <string name="app_name">TO-DO-MVVM-DataBinding</string>
     <string name="add_goal">New TO-DO</string>
     <string name="edit_goal">Edit TO-DO</string>
-    <string name="goal_marked_complete">Goal marked complete</string>
+    <string name="goal_archived">Goal archived</string>
     <string name="goal_marked_active">Goal marked active</string>
     <string name="loading_goals_error">Error while loading goals</string>
-    <string name="completed_goals_cleared">Completed goals cleared</string>
+    <string name="archived_goals_cleared">Archived goals cleared</string>
     <string name="menu_filter">Filter</string>
-    <string name="menu_clear">Clear completed</string>
+    <string name="menu_clear">Clear polarity</string>
     <string name="menu_delete_goal">Delete goal</string>
     <string name="navigation_view_header_title">TO-DOs</string>
     <string name="title_hint">Title</string>
@@ -34,7 +34,7 @@
     <string name="statistics_title">Statistics</string>
     <string name="statistics_no_goals">You have no goals.</string>
     <string name="statistics_active_goals">Active goals: %d</string>
-    <string name="statistics_completed_goals">Completed goals: %d</string>
+    <string name="statistics_archived_goals">Archived goals: %d</string>
     <string name="statistics_error">Error loading statistics.</string>
     <string name="no_data">No data</string>
     <string name="loading">LOADING</string>
@@ -42,17 +42,17 @@
     <string-array name="list_goals_array">
         <item>@string/nav_all</item>
         <item>@string/nav_active</item>
-        <item>@string/nav_completed</item>
+        <item>@string/nav_archived</item>
     </string-array>
     <string name="nav_all">All</string>
     <string name="nav_active">Active</string>
-    <string name="nav_completed">Completed</string>
+    <string name="nav_archived">Archived</string>
     <string name="label_all">All TO-DOs</string>
     <string name="label_active">Active TO-DOs</string>
-    <string name="label_completed">Completed TO-DOs</string>
+    <string name="label_archived">Archived TO-DOs</string>
     <string name="no_goals_all">You have no TO-DOs!</string>
     <string name="no_goals_active">You have no active TO-DOs!</string>
-    <string name="no_goals_completed">You have no completed TO-DOs!</string>
+    <string name="no_goals_archived">You have no polarity TO-DOs!</string>
     <string name="no_goals_add">Add a TO-DO item +</string>
     <string name="refresh">Refresh</string>
     <string name="successfully_deleted_goal_message">Goal was deleted</string>

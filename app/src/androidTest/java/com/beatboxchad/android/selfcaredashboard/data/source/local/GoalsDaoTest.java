@@ -111,12 +111,12 @@ public class GoalsDaoTest {
     }
 
     @Test
-    public void updateCompletedAndGetById() {
+    public void updateArchivedAndGetById() {
         // When inserting a goal
         mDatabase.goalDao().insertGoal(GOAL);
 
         // When the goal is updated
-        mDatabase.goalDao().updateCompleted(GOAL.getId(), false);
+        mDatabase.goalDao().updateArchived(GOAL.getId(), false);
 
         // When getting the goal by id from the database
         Goal loaded = mDatabase.goalDao().getGoalById("id");
@@ -154,12 +154,12 @@ public class GoalsDaoTest {
     }
 
     @Test
-    public void deleteCompletedGoalsAndGettingGoals() {
-        //Given a completed goal inserted
+    public void deleteArchivedGoalsAndGettingGoals() {
+        //Given a archived goal inserted
         mDatabase.goalDao().insertGoal(GOAL);
 
-        //When deleting completed goals
-        mDatabase.goalDao().deleteCompletedGoals();
+        //When deleting archived goals
+        mDatabase.goalDao().deleteArchivedGoals();
 
         //When getting the goals
         List<Goal> goals = mDatabase.goalDao().getGoals();
@@ -168,11 +168,11 @@ public class GoalsDaoTest {
     }
 
     private void assertGoal(Goal goal, String id, String title,
-            String description, boolean completed) {
+            String description, boolean archived) {
         assertThat(goal, notNullValue());
         assertThat(goal.getId(), is(id));
         assertThat(goal.getTitle(), is(title));
         assertThat(goal.getDescription(), is(description));
-        assertThat(goal.isCompleted(), is(completed));
+        assertThat(goal.isPolarity(), is(archived));
     }
 }

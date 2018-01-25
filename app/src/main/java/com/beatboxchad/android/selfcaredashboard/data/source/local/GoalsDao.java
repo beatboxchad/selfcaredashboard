@@ -67,13 +67,13 @@ public interface GoalsDao {
     int updateGoal(Goal goal);
 
     /**
-     * Update the complete status of a goal
+     * Update the Archived status of a goal
      *
      * @param goalId    id of the goal
-     * @param completed status to be updated
+     * @param archived status to be updated
      */
-    @Query("UPDATE goals SET completed = :completed WHERE entryid = :goalId")
-    void updateCompleted(String goalId, boolean completed);
+    @Query("UPDATE goals SET archived = :archived WHERE entryid = :goalId")
+    void updateArchived(String goalId, boolean archived);
 
     /**
      * Delete a goal by id.
@@ -90,10 +90,10 @@ public interface GoalsDao {
     void deleteGoals();
 
     /**
-     * Delete all completed goals from the table.
+     * Delete all archived goals from the table.
      *
      * @return the number of goals deleted.
      */
-    @Query("DELETE FROM Goals WHERE completed = 1")
-    int deleteCompletedGoals();
+    @Query("DELETE FROM Goals WHERE archived = 1")
+    int deleteArchivedGoals();
 }

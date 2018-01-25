@@ -107,7 +107,7 @@ public class GoalsViewModel extends BaseObservable {
      * Sets the current goal filtering type.
      *
      * @param requestType Can be {@link GoalsFilterType#ALL_GOALS},
-     *                    {@link GoalsFilterType#COMPLETED_GOALS}, or
+     *                    {@link GoalsFilterType#ARCHIVED_GOALS}, or
      *                    {@link GoalsFilterType#ACTIVE_GOALS}
      */
     public void setFiltering(GoalsFilterType requestType) {
@@ -129,9 +129,9 @@ public class GoalsViewModel extends BaseObservable {
                         R.drawable.ic_check_circle_24dp));
                 goalsAddViewVisible.set(false);
                 break;
-            case COMPLETED_GOALS:
-                currentFilteringLabel.set(mContext.getString(R.string.label_completed));
-                noGoalsLabel.set(mContext.getResources().getString(R.string.no_goals_completed));
+            case ARCHIVED_GOALS:
+                currentFilteringLabel.set(mContext.getString(R.string.label_archived));
+                noGoalsLabel.set(mContext.getResources().getString(R.string.no_goals_archived));
                 noGoalIconRes.set(mContext.getResources().getDrawable(
                         R.drawable.ic_verified_user_24dp));
                 goalsAddViewVisible.set(false);
@@ -139,9 +139,9 @@ public class GoalsViewModel extends BaseObservable {
         }
     }
 
-    public void clearCompletedGoals() {
-        mGoalsRepository.clearCompletedGoals();
-        snackbarText.set(mContext.getString(R.string.completed_goals_cleared));
+    public void clearArchivedGoals() {
+        mGoalsRepository.clearArchivedGoals();
+        snackbarText.set(mContext.getString(R.string.archived_goals_cleared));
         loadGoals(false, false);
     }
 
@@ -217,8 +217,8 @@ public class GoalsViewModel extends BaseObservable {
                                 goalsToShow.add(goal);
                             }
                             break;
-                        case COMPLETED_GOALS:
-                            if (goal.isCompleted()) {
+                        case ARCHIVED_GOALS:
+                            if (goal.isArchived()) {
                                 goalsToShow.add(goal);
                             }
                             break;

@@ -26,7 +26,7 @@ import com.beatboxchad.android.selfcaredashboard.data.Goal;
 /**
  * The Room Database that contains the Goal table.
  */
-@Database(entities = {Goal.class}, version = 1)
+@Database(entities = {Goal.class}, version = 2)
 public abstract class ToDoDatabase extends RoomDatabase {
 
     private static ToDoDatabase INSTANCE;

@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:background="@{viewmodel.completed ? @drawable/list_completed_touch_feedback : @drawable/touch_feedback}"
+        android:background="@{viewmodel.archived ? @drawable/list_completed_touch_feedback : @drawable/touch_feedback}"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -34,11 +34,11 @@
         android:onClick="@{() -> viewmodel.goalClicked()}">
 
         <CheckBox
-            android:id="@+id/complete"
+            android:id="@+id/archived"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:checked="@={viewmodel.completed}"/>
+            android:checked="@={viewmodel.archived}"/>
 
         <TextView
             android:id="@+id/title"

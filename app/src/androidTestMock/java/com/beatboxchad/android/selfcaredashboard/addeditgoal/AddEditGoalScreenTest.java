@@ -126,7 +126,7 @@ public class AddEditGoalScreenTest {
     public void toolbarTitle_editGoal_persistsRotation() {
         // Put a goal in the repository and start the activity to edit it
         GoalsRepository.destroyInstance();
-        FakeGoalsRemoteDataSource.getInstance().addGoals(new Goal("Title1", "", GOAL_ID, false));
+        //FakeGoalsRemoteDataSource.getInstance().addGoals(new Goal("Title1", "", GOAL_ID, false));
         launchNewGoalActivity(GOAL_ID);
 
         // Check that the toolbar shows the correct title

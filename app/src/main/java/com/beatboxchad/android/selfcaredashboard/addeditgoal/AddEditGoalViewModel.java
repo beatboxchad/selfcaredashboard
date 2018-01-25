@@ -26,23 +26,25 @@ import com.beatboxchad.android.selfcaredashboard.data.Goal;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsDataSource;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
 
+import java.util.UUID;
+
 /**
  * ViewModel for the Add/Edit screen.
  * <p>
  * This ViewModel only exposes {@link ObservableField}s, so it doesn't need to extend
- * {@link android.databinding.BaseObservable} and updates are notified automatically. See
- * {@link com.beatboxchad.android.selfcaredashboard.statistics.StatisticsViewModel} for
- * how to deal with more complex scenarios.
+ * {@link android.databinding.BaseObservable} and updates are notified automatically.
  */
 public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
 
     public final ObservableField<String> title = new ObservableField<>();
 
-    public final ObservableField<String> description = new ObservableField<>();
-
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
 
     public final ObservableField<String> snackbarText = new ObservableField<>();
+
+    public final ObservableField<Integer> interval = new ObservableField<>();
+
+    public final ObservableField<Boolean> polarity = new ObservableField<>();
 
     private final GoalsRepository mGoalsRepository;
 
@@ -94,7 +96,6 @@ public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
     @Override
     public void onGoalLoaded(Goal goal) {
         title.set(goal.getTitle());
-        description.set(goal.getDescription());
         dataLoading.set(false);
         mIsDataLoaded = true;
 
@@ -110,9 +111,9 @@ public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
     // Called when clicking on fab.
     public void saveGoal() {
         if (isNewGoal()) {
-            createGoal(title.get(), description.get());
+            createGoal(title.get(), interval.get(), polarity.get());
         } else {
-            updateGoal(title.get(), description.get());
+            updateGoal(title.get(), interval.get(), polarity.get());
         }
     }
 
@@ -125,8 +126,12 @@ public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
         return mIsNewGoal;
     }
 
-    private void createGoal(String title, String description) {
-        Goal newGoal = new Goal(title, description);
+    private void createGoal(String title, int interval, boolean polarity) {
+        Goal newGoal = new Goal.Builder(UUID.randomUUID().toString())
+                .setTitle(title)
+                .setInterval(interval)
+                .setPolarity(polarity)
+                .build();
         if (newGoal.isEmpty()) {
             snackbarText.set(mContext.getString(R.string.empty_goal_message));
         } else {
@@ -135,16 +140,20 @@ public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
         }
     }
 
-    private void updateGoal(String title, String description) {
+    private void updateGoal(String title, int interval, boolean polarity) {
         if (isNewGoal()) {
             throw new RuntimeException("updateGoal() was called but goal is new.");
         }
-        mGoalsRepository.saveGoal(new Goal(title, description, mGoalId));
+        mGoalsRepository.saveGoal(new Goal.Builder(mGoalId)
+                .setTitle(title)
+                .setInterval(interval)
+                .setPolarity(polarity)
+                .build());
         navigateOnGoalSaved(); // After an edit, go back to the list.
     }
 
     private void navigateOnGoalSaved() {
-        if (mAddEditGoalNavigator!= null) {
+        if (mAddEditGoalNavigator != null) {
             mAddEditGoalNavigator.onGoalSaved();
         }
     }

@@ -47,15 +47,15 @@ public interface GoalsDataSource {
 
     void saveGoal(@NonNull Goal goal);
 
-    void completeGoal(@NonNull Goal goal);
+    void archiveGoal(@NonNull Goal goal);
 
-    void completeGoal(@NonNull String goalId);
+    void archiveGoal(@NonNull String goalId);
 
     void activateGoal(@NonNull Goal goal);
 
     void activateGoal(@NonNull String goalId);
 
-    void clearCompletedGoals();
+    void clearArchivedGoals();
 
     void refreshGoals();
 

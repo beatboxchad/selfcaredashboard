@@ -33,7 +33,6 @@ import com.beatboxchad.android.selfcaredashboard.Injection;
 import com.beatboxchad.android.selfcaredashboard.R;
 import com.beatboxchad.android.selfcaredashboard.ViewModelHolder;
 import com.beatboxchad.android.selfcaredashboard.addeditgoal.AddEditGoalActivity;
-import com.beatboxchad.android.selfcaredashboard.statistics.StatisticsActivity;
 import com.beatboxchad.android.selfcaredashboard.goaldetail.GoalDetailActivity;
 import com.beatboxchad.android.selfcaredashboard.util.ActivityUtils;
 import com.beatboxchad.android.selfcaredashboard.util.EspressoIdlingResource;
@@ -147,9 +146,9 @@ public class GoalsActivity extends AppCompatActivity implements GoalItemNavigato
                                 // Do nothing, we're already on that screen
                                 break;
                             case R.id.statistics_navigation_menu_item:
-                                Intent intent =
-                                        new Intent(GoalsActivity.this, StatisticsActivity.class);
-                                startActivity(intent);
+//                                Intent intent =
+//                                        new Intent(GoalsActivity.this, StatisticsActivity.class);
+//                                startActivity(intent);
                                 break;
                             default:
                                 break;

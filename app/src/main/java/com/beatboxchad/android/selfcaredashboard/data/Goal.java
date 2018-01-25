@@ -18,15 +18,12 @@ package com.beatboxchad.android.selfcaredashboard.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
-
-import java.util.UUID;
 
 /**
  * Immutable model class for a Goal.
@@ -43,65 +40,87 @@ public final class Goal {
     @ColumnInfo(name = "title")
     private final String mTitle;
 
+    @ColumnInfo(name = "polarity")
+    private final boolean mPolarity;
+
     @Nullable
-    @ColumnInfo(name = "description")
-    private final String mDescription;
+    @ColumnInfo(name = "interval")
+    private final int mInterval;
 
-    @ColumnInfo(name = "completed")
-    private final boolean mCompleted;
+    @ColumnInfo(name = "touched")
+    private final long mTouched;
 
-    /**
-     * Use this constructor to create a new active Goal.
-     *
-     * @param title       title of the goal
-     * @param description description of the goal
-     */
-    @Ignore
-    public Goal(@Nullable String title, @Nullable String description) {
-        this(title, description, UUID.randomUUID().toString(), false);
+
+    @ColumnInfo(name = "archived")
+    private final boolean mArchived;
+
+
+    public Goal(@NonNull String id,
+                @Nullable String title,
+                @Nullable boolean polarity,
+                @Nullable int interval,
+                @Nullable long touched,
+                @Nullable boolean archived) {
+        this(new Goal.Builder(id)
+                .setTitle(title)
+                .setPolarity(polarity)
+                .setInterval(interval)
+                .setTouched(touched)
+                .setArchived(archived));
     }
 
-    /**
-     * Use this constructor to create an active Goal if the Goal already has an id (copy of another
-     * Goal).
-     *
-     * @param title       title of the goal
-     * @param description description of the goal
-     * @param id          id of the goal
-     */
-    @Ignore
-    public Goal(@Nullable String title, @Nullable String description, @NonNull String id) {
-        this(title, description, id, false);
+    public static class Builder {
+        private final String mId;
+        private String mTitle;
+        private int mInterval;
+        private boolean mPolarity;
+        private boolean mArchived;
+        private long mTouched;
+
+        public Builder(String id) {
+            this.mId = id;
+        }
+
+        public Builder setTitle(String title) {
+            this.mTitle = title;
+            return this;
+        }
+
+        public Builder setInterval(int interval) {
+            this.mInterval = interval;
+            return this;
+        }
+
+        public Builder setPolarity(boolean polarity) {
+            this.mPolarity = polarity;
+            return this;
+        }
+
+        public Builder setArchived(boolean archived) {
+            this.mArchived = archived;
+            return this;
+        }
+
+        public Builder setTouched(long touched) {
+            this.mTouched = touched;
+            return this;
+        }
+
+        public Goal build() {
+            return new Goal(this);
+        }
+
     }
 
-    /**
-     * Use this constructor to create a new completed Goal.
-     *
-     * @param title       title of the goal
-     * @param description description of the goal
-     * @param completed   true if the goal is completed, false if it's active
-     */
-    @Ignore
-    public Goal(@Nullable String title, @Nullable String description, boolean completed) {
-        this(title, description, UUID.randomUUID().toString(), completed);
+    private Goal(Builder builder) {
+        mId = builder.mId;
+        mTitle = builder.mTitle;
+        mPolarity = builder.mPolarity;
+        mTouched = builder.mTouched;
+        mInterval = builder.mInterval;
+        mArchived = builder.mArchived;
     }
 
-    /**
-     * Use this constructor to specify a completed Goal if the Goal already has an id (copy of
-     * another Goal).
-     *
-     * @param title       title of the goal
-     * @param description description of the goal
-     * @param id          id of the goal
-     * @param completed   true if the goal is completed, false if it's active
-     */
-    public Goal(@Nullable String title, @Nullable String description,
-                @NonNull String id, boolean completed) {
-        mId = id;
-        mTitle = title;
-        mDescription = description;
-        mCompleted = completed;
-    }
 
     @NonNull
     public String getId() {
@@ -113,31 +132,40 @@ public final class Goal {
         return mTitle;
     }
 
+
     @Nullable
     public String getTitleForList() {
-        if (!Strings.isNullOrEmpty(mTitle)) {
             return mTitle;
-        } else {
-            return mDescription;
-        }
     }
 
     @Nullable
-    public String getDescription() {
-        return mDescription;
+    public boolean getPolarity() {
+        return mPolarity;
     }
 
-    public boolean isCompleted() {
-        return mCompleted;
-    }
-
+    @Nullable
     public boolean isActive() {
-        return !mCompleted;
+        return !mArchived;
     }
+
+    @Nullable
+    public boolean isArchived() {
+        return mArchived;
+    }
+
+    @Nullable
+    public int getInterval() {
+        return mInterval;
+    }
+
+    @Nullable
+    public long getTouched() {
+        return mTouched;
+    }
+
 
     public boolean isEmpty() {
-        return Strings.isNullOrEmpty(mTitle) &&
-               Strings.isNullOrEmpty(mDescription);
+        return Strings.isNullOrEmpty(mTitle);
     }
 
     @Override
@@ -146,13 +174,16 @@ public final class Goal {
         if (o == null || getClass() != o.getClass()) return false;
         Goal goal = (Goal) o;
         return Objects.equal(mId, goal.mId) &&
-               Objects.equal(mTitle, goal.mTitle) &&
-               Objects.equal(mDescription, goal.mDescription);
+                Objects.equal(mTitle, goal.mTitle) &&
+                Objects.equal(mPolarity, goal.mPolarity) &&
+                Objects.equal(mInterval, goal.mInterval) &&
+                Objects.equal(mArchived, goal.mArchived) &&
+                Objects.equal(mTouched, goal.mTouched);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mTitle, mDescription);
+        return Objects.hashCode(mId, mTitle, mPolarity, mInterval, mTouched, mArchived);
     }
 
     @Override
