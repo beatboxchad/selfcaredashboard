@@ -17,12 +17,14 @@
 package com.beatboxchad.android.selfcaredashboard.goals;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import com.beatboxchad.android.selfcaredashboard.GoalViewModel;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
 
 import java.lang.ref.WeakReference;
+import java.sql.Date;
 
 
 /**
@@ -55,6 +57,18 @@ public class GoalItemViewModel extends GoalViewModel {
         }
         if (mNavigator != null && mNavigator.get() != null) {
             mNavigator.get().openGoalDetails(goalId);
+        }
+    }
+
+    public void calcColor() {
+        if (touched.get() != null) {
+            long diff = new Date(System.currentTimeMillis()).getTime() - touched.get();
+            float diffInDays = diff / 1000 / 60 / 60 / 24;
+            float percent = (diffInDays / interval.get());
+            float hue = polarity.get() ? 120 * percent : 120 - (120 * percent);
+            color.set(Color.HSVToColor(new float[]{hue, 1, 1}));
+        } else {
+            color.set(0);
         }
     }
 }

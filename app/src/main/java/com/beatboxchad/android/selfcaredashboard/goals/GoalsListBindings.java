@@ -18,7 +18,9 @@ package com.beatboxchad.android.selfcaredashboard.goals;
 
 import android.databinding.BindingAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.beatboxchad.android.selfcaredashboard.GoalViewModel;
 import com.beatboxchad.android.selfcaredashboard.data.Goal;
 
 import java.util.List;
@@ -36,5 +38,10 @@ public class GoalsListBindings {
         {
             adapter.replaceData(items);
         }
+    }
+
+    @BindingAdapter("android:backgroundColor")
+    public static void customGoalColor(TextView textView, int color) {
+        textView.setBackgroundColor(color);
     }
 }

@@ -23,6 +23,7 @@ import com.beatboxchad.android.selfcaredashboard.data.source.GoalsDataSource;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
 import com.beatboxchad.android.selfcaredashboard.data.source.local.GoalsLocalDataSource;
 import com.beatboxchad.android.selfcaredashboard.data.source.local.ToDoDatabase;
+import com.beatboxchad.android.selfcaredashboard.data.source.remote.GoalsRemoteDataSource;
 import com.beatboxchad.android.selfcaredashboard.util.AppExecutors;
 
 import static com.google.common.base.Preconditions.checkNotNull;

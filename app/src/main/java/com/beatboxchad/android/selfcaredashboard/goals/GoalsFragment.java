@@ -271,6 +271,7 @@ public class GoalsFragment extends Fragment {
             );
 
             viewmodel.setNavigator(mGoalItemNavigator);
+            viewmodel.calcColor();
 
             binding.setViewmodel(viewmodel);
             // To save on PropertyChangedCallbacks, wire the item's snackbar text observable to the

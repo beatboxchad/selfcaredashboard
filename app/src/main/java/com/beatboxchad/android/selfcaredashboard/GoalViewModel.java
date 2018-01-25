@@ -21,6 +21,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import com.beatboxchad.android.selfcaredashboard.data.Goal;
@@ -41,6 +42,10 @@ public abstract class GoalViewModel extends BaseObservable
     public final ObservableField<Integer> interval = new ObservableField<>();
 
     public final ObservableField<Boolean> polarity = new ObservableField<>();
+
+    public final ObservableField<Long> touched = new ObservableField<>();
+
+    public final ObservableField<Integer> color = new ObservableField<>();
 
     private final ObservableField<Goal> mGoalObservable = new ObservableField<>();
 
