@@ -13,17 +13,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<layout xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <variable
             name="viewmodel"
-            type="com.beatboxchad.android.selfcaredashboard.goaldetail.GoalDetailViewModel" />
+            type="com.beatboxchad.android.selfcaredashboard.goaldetail.GoalDetailViewModel"/>
     </data>
 
     <com.beatboxchad.android.selfcaredashboard.ScrollChildSwipeRefreshLayout
@@ -34,46 +34,139 @@
         app:refreshing="@{viewmodel.dataLoading}">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/goal_detail_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
+            android:id="@+id/goal_detail_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
 
             <TextView
-                android:id="@+id/textView"
+
+                android:id="@+id/goal_detail_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="48dp"
-                android:text="@string/no_data"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="48dp"/>
-
+                android:layout_marginTop="8dp"
+                android:text="Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/goal_detail_title"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
+
+                android:id="@+id/goal_detail_interval_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Interval"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_title"/>
+
+            <TextView
+
+                android:id="@+id/goal_detail_polarity_label"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:text="Polarity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintStart_toStartOf="@+id/goal_detail_polarity"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_title"/>
+
+            <TextView
+                android:id="@+id/goal_detail_no_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="124dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/no_data"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:gravity="center"
+                android:visibility="@{viewmodel.isDataLoading ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+
                 android:id="@+id/goal_detail_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@{viewmodel.title}"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                app:layout_constraintEnd_toEndOf="@+id/goal_detail_polarity"
-                app:layout_constraintStart_toStartOf="@+id/goal_detail_polarity"
-                app:layout_constraintTop_toBottomOf="parent"/>
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_label"
+                tools:text="Goal Title"/>
 
             <TextView
+                android:id="@+id/goal_detail_interval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewmodel.interval + ` days`}"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                android:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_interval_label"
+                tools:text="4 days"/>
+
+            <TextView
+
                 android:id="@+id/goal_detail_polarity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@{viewmodel.polarity ? @string/goal_polarity_chase : @string/goal_polarity_avoid}"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/goal_detail_title"
-                android:layout_marginRight="16dp"/>
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                app:layout_constraintBottom_toBottomOf="@+id/goal_detail_interval"
+                app:layout_constraintStart_toEndOf="@+id/goal_detail_interval"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_polarity_label"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="Chase"/>
 
+            <TextView
+
+                android:id="@+id/goal_detail_touched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewmodel.touchedDateString}"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_touched_label"
+                tools:text="2018 1001 00"/>
+
+            <TextView
+                android:id="@+id/goal_detail_touched_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Touched"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintEnd_toEndOf="@+id/goal_detail_touched"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/goal_detail_interval"/>
 
         </android.support.constraint.ConstraintLayout>
     </com.beatboxchad.android.selfcaredashboard.ScrollChildSwipeRefreshLayout>
