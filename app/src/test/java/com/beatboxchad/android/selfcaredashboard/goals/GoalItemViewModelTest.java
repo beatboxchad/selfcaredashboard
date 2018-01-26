@@ -92,7 +92,7 @@ public class GoalItemViewModelTest {
         mLoadGoalsCallbackCaptor.getValue().onGoalLoaded(mGoal); // Trigger callback
 
         // Then goal detail UI is shown
-        assertEquals(mGoalItemViewModel.title.get(), mGoal.getTitle());
+        assertEquals(mGoalItemViewModel.mTitle.get(), mGoal.getTitle());
         assertEquals(mGoalItemViewModel.description.get(), mGoal.getDescription());
     }
 
@@ -105,7 +105,7 @@ public class GoalItemViewModelTest {
         mLoadGoalsCallbackCaptor.getValue().onGoalLoaded(null); // Trigger callback
 
         // Then goal detail UI is shown
-        assertEquals(mGoalItemViewModel.title.get(), NO_DATA_STRING);
+        assertEquals(mGoalItemViewModel.mTitle.get(), NO_DATA_STRING);
         assertEquals(mGoalItemViewModel.description.get(), NO_DATA_DESC_STRING);
     }
 

@@ -61,4 +61,6 @@ public class GoalDetailViewModel extends GoalViewModel {
             mGoalDetailNavigator.onStartEditGoal();
         }
     }
+
+
 }

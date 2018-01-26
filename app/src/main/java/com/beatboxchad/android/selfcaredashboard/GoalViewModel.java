@@ -19,9 +19,9 @@ package com.beatboxchad.android.selfcaredashboard;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import com.beatboxchad.android.selfcaredashboard.data.Goal;
@@ -37,15 +37,13 @@ public abstract class GoalViewModel extends BaseObservable
 
     public final ObservableField<String> snackbarText = new ObservableField<>();
 
-    public final ObservableField<String> title = new ObservableField<>();
+    public final ObservableField<String> mTitle = new ObservableField<>();
 
-    public final ObservableField<Integer> interval = new ObservableField<>();
+    public final ObservableField<Integer> mInterval = new ObservableField<>();
 
-    public final ObservableField<Boolean> polarity = new ObservableField<>();
+    public final ObservableField<Boolean> mPolarity = new ObservableField<>();
 
-    public final ObservableField<Long> touched = new ObservableField<>();
-
-    public final ObservableField<Integer> color = new ObservableField<>();
+    public final ObservableField<Long> mTouched = new ObservableField<>();
 
     private final ObservableField<Goal> mGoalObservable = new ObservableField<>();
 
@@ -65,9 +63,12 @@ public abstract class GoalViewModel extends BaseObservable
             public void onPropertyChanged(Observable observable, int i) {
                 Goal goal = mGoalObservable.get();
                 if (goal != null) {
-                    title.set(goal.getTitle());
+                    mTitle.set(goal.getTitle());
+                    mInterval.set(goal.getInterval());
+                    mPolarity.set(goal.getPolarity());
+                    mTouched.set(goal.getTouched());
                 } else {
-                    title.set(mContext.getString(R.string.no_data));
+                    mTitle.set(mContext.getString(R.string.no_data));
                 }
             }
         });
@@ -84,8 +85,23 @@ public abstract class GoalViewModel extends BaseObservable
         mGoalObservable.set(goal);
     }
 
-    // "archived" is two-way bound, so in order to intercept the new value, use a @Bindable
-    // annotation and process it in the setter.
+    @Bindable
+    public String getTitle() {
+        return mTitle.get();
+    }
+
+    @Bindable
+    public int getInterval() {
+        return mInterval.get();
+    }
+
+    @Bindable
+    public boolean getPolarity() {
+        return mPolarity.get();
+    }
+
+    // "archived" is two-way bound, so in order to intercept the new value, use a
+// @Bindable annotation and process it in the setter.
     @Bindable
     public boolean getArchived() {
         Goal goal = mGoalObservable.get();
@@ -155,6 +171,7 @@ public abstract class GoalViewModel extends BaseObservable
     public String getSnackbarText() {
         return snackbarText.get();
     }
+
 
     @Nullable
     protected String getGoalId() {

@@ -35,7 +35,7 @@ import com.beatboxchad.android.selfcaredashboard.util.SnackbarUtils;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Main UI for the add goal screen. Users can enter a goal title, interval, polarity.
+ * Main UI for the add goal screen. Users can enter a goal mTitle, mInterval, mPolarity.
  */
 public class AddEditGoalFragment extends Fragment {
 

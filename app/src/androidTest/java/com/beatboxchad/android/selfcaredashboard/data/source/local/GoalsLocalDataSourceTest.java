@@ -50,7 +50,7 @@ import java.util.UUID;
 @LargeTest
 public class GoalsLocalDataSourceTest {
 
-    private final static String TITLE = "title";
+    private final static String TITLE = "mTitle";
 
     private final static String TITLE2 = "title2";
 

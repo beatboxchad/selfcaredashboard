@@ -146,12 +146,9 @@ public class GoalsScreenTest {
         String editGoalTitle = TITLE2;
         String editGoalDescription = "New Description";
 
-        // Edit goal title and description
+        // Edit goal mTitle and description
         onView(withId(R.id.add_goal_title))
-                .perform(replaceText(editGoalTitle), closeSoftKeyboard()); // Type new goal title
-        onView(withId(R.id.add_goal_description)).perform(replaceText(editGoalDescription),
-                closeSoftKeyboard()); // Type new goal description and close the keyboard
-
+                .perform(replaceText(editGoalTitle), closeSoftKeyboard()); // Type new goal mTitle
         // Save the goal
         onView(withId(R.id.fab_edit_goal_done)).perform(click());
 
@@ -171,21 +168,21 @@ public class GoalsScreenTest {
     }
 
     @Test
-    public void markGoalAsComplete() {
+    public void markGoalAsArchive() {
         viewAllGoals();
 
         // Add active goal
         createGoal(TITLE1, DESCRIPTION);
 
-        // Mark the goal as complete
+        // Mark the goal as archive
         clickCheckBoxForGoal(TITLE1);
 
-        // Verify goal is shown as complete
+        // Verify goal is shown as archive
         viewAllGoals();
         onView(withItemText(TITLE1)).check(matches(isDisplayed()));
         viewActiveGoals();
         onView(withItemText(TITLE1)).check(matches(not(isDisplayed())));
-        viewCompletedGoals();
+        viewArchivedGoals();
         onView(withItemText(TITLE1)).check(matches(isDisplayed()));
     }
 
@@ -193,7 +190,7 @@ public class GoalsScreenTest {
     public void markGoalAsActive() {
         viewAllGoals();
 
-        // Add completed goal
+        // Add archived goal
         createGoal(TITLE1, DESCRIPTION);
         clickCheckBoxForGoal(TITLE1);
 
@@ -205,7 +202,7 @@ public class GoalsScreenTest {
         onView(withItemText(TITLE1)).check(matches(isDisplayed()));
         viewActiveGoals();
         onView(withItemText(TITLE1)).check(matches(isDisplayed()));
-        viewCompletedGoals();
+        viewArchivedGoals();
         onView(withItemText(TITLE1)).check(matches(not(isDisplayed())));
     }
 
@@ -234,34 +231,34 @@ public class GoalsScreenTest {
     }
 
     @Test
-    public void showCompletedGoals() {
-        // Add 2 completed goals
+    public void showArchivedGoals() {
+        // Add 2 archived goals
         createGoal(TITLE1, DESCRIPTION);
         clickCheckBoxForGoal(TITLE1);
         createGoal(TITLE2, DESCRIPTION);
         clickCheckBoxForGoal(TITLE2);
 
         // Verify that all our goals are shown
-        viewCompletedGoals();
+        viewArchivedGoals();
         onView(withItemText(TITLE1)).check(matches(isDisplayed()));
         onView(withItemText(TITLE2)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void clearCompletedGoals() {
+    public void clearArchivedGoals() {
         viewAllGoals();
 
-        // Add 2 complete goals
+        // Add 2 archive goals
         createGoal(TITLE1, DESCRIPTION);
         clickCheckBoxForGoal(TITLE1);
         createGoal(TITLE2, DESCRIPTION);
         clickCheckBoxForGoal(TITLE2);
 
-        // Click clear completed in menu
+        // Click clear archived in menu
         openActionBarOverflowOrOptionsMenu(getTargetContext());
         onView(withText(R.string.menu_clear)).perform(click());
 
-        //Verify that completed goals are not shown
+        //Verify that archived goals are not shown
         onView(withItemText(TITLE1)).check(matches(not(isDisplayed())));
         onView(withItemText(TITLE2)).check(matches(not(isDisplayed())));
     }
@@ -303,7 +300,7 @@ public class GoalsScreenTest {
     }
 
     @Test
-    public void markGoalAsCompleteOnDetailScreen_goalIsCompleteInList() {
+    public void markGoalAsArchiveOnDetailScreen_goalIsArchiveInList() {
         viewAllGoals();
 
         // Add 1 active goal
@@ -313,13 +310,13 @@ public class GoalsScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in goal details screen
-        onView(withId(R.id.goal_detail_complete)).perform(click());
+        onView(withId(R.id.goal_detail_archived)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
 
-        // Check that the goal is marked as completed
-        onView(allOf(withId(R.id.complete),
+        // Check that the goal is marked as archived
+        onView(allOf(withId(R.id.archived),
                 hasSibling(withText(TITLE1)))).check(matches(isChecked()));
     }
 
@@ -327,7 +324,7 @@ public class GoalsScreenTest {
     public void markGoalAsActiveOnDetailScreen_goalIsActiveInList() {
         viewAllGoals();
 
-        // Add 1 completed goal
+        // Add 1 archived goal
         createGoal(TITLE1, DESCRIPTION);
         clickCheckBoxForGoal(TITLE1);
 
@@ -335,18 +332,18 @@ public class GoalsScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in goal details screen
-        onView(withId(R.id.goal_detail_complete)).perform(click());
+        onView(withId(R.id.goal_detail_archived)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
 
         // Check that the goal is marked as active
-        onView(allOf(withId(R.id.complete),
+        onView(allOf(withId(R.id.archived),
                 hasSibling(withText(TITLE1)))).check(matches(not(isChecked())));
     }
 
     @Test
-    public void markGoalAsAcompleteAndActiveOnDetailScreen_goalIsActiveInList() {
+    public void markGoalAsAarchiveAndActiveOnDetailScreen_goalIsActiveInList() {
         viewAllGoals();
 
         // Add 1 active goal
@@ -356,24 +353,24 @@ public class GoalsScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in goal details screen
-        onView(withId(R.id.goal_detail_complete)).perform(click());
+        onView(withId(R.id.goal_detail_archived)).perform(click());
 
         // Click again to restore it to original state
-        onView(withId(R.id.goal_detail_complete)).perform(click());
+        onView(withId(R.id.goal_detail_archived)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
 
         // Check that the goal is marked as active
-        onView(allOf(withId(R.id.complete),
+        onView(allOf(withId(R.id.archived),
                 hasSibling(withText(TITLE1)))).check(matches(not(isChecked())));
     }
 
     @Test
-    public void markGoalAsActiveAndCompleteOnDetailScreen_goalIsCompleteInList() {
+    public void markGoalAsActiveAndArchiveOnDetailScreen_goalIsArchiveInList() {
         viewAllGoals();
 
-        // Add 1 completed goal
+        // Add 1 archived goal
         createGoal(TITLE1, DESCRIPTION);
         clickCheckBoxForGoal(TITLE1);
 
@@ -381,23 +378,23 @@ public class GoalsScreenTest {
         onView(withText(TITLE1)).perform(click());
 
         // Click on the checkbox in goal details screen
-        onView(withId(R.id.goal_detail_complete)).perform(click());
+        onView(withId(R.id.goal_detail_archived)).perform(click());
 
         // Click again to restore it to original state
-        onView(withId(R.id.goal_detail_complete)).perform(click());
+        onView(withId(R.id.goal_detail_archived)).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
 
         // Check that the goal is marked as active
-        onView(allOf(withId(R.id.complete),
+        onView(allOf(withId(R.id.archived),
                 hasSibling(withText(TITLE1)))).check(matches(isChecked()));
     }
 
     @Test
     public void orientationChange_FilterActivePersists() {
 
-        // Add a completed goal
+        // Add a archived goal
         createGoal(TITLE1, DESCRIPTION);
         clickCheckBoxForGoal(TITLE1);
 
@@ -415,16 +412,16 @@ public class GoalsScreenTest {
     }
 
     @Test
-    public void orientationChange_FilterCompletedPersists() {
+    public void orientationChange_FilterArchivedPersists() {
 
-        // Add a completed goal
+        // Add a archived goal
         createGoal(TITLE1, DESCRIPTION);
         clickCheckBoxForGoal(TITLE1);
 
-        // when switching to completed goals
-        viewCompletedGoals();
+        // when switching to archived goals
+        viewArchivedGoals();
 
-        // the completed goal should be displayed
+        // the archived goal should be displayed
         onView(withText(TITLE1)).check(matches(isDisplayed()));
 
         // when rotating the screen
@@ -432,13 +429,13 @@ public class GoalsScreenTest {
 
         // then nothing changes
         onView(withText(TITLE1)).check(matches(isDisplayed()));
-        onView(withText(R.string.label_completed)).check(matches(isDisplayed()));
+        onView(withText(R.string.label_archived)).check(matches(isDisplayed()));
     }
 
     @Test
     @SdkSuppress(minSdkVersion = 21) // Blinking cursor after rotation breaks this in API 19
     public void orientationChange_DuringEdit_ChangePersists() throws Throwable {
-        // Add a completed goal
+        // Add a archived goal
         createGoal(TITLE1, DESCRIPTION);
 
         // Open the goal in details view
@@ -447,21 +444,21 @@ public class GoalsScreenTest {
         // Click on the edit goal button
         onView(withId(R.id.fab_edit_goal)).perform(click());
 
-        // Change goal title (but don't save)
+        // Change goal mTitle (but don't save)
         onView(withId(R.id.add_goal_title))
-                .perform(replaceText(TITLE2), closeSoftKeyboard()); // Type new goal title
+                .perform(replaceText(TITLE2), closeSoftKeyboard()); // Type new goal mTitle
 
         // Rotate the screen
         TestUtils.rotateOrientation(getCurrentActivity());
 
-        // Verify goal title is restored
+        // Verify goal mTitle is restored
         onView(withId(R.id.add_goal_title)).check(matches(withText(TITLE2)));
     }
 
     @Test
     @SdkSuppress(minSdkVersion = 21) // Blinking cursor after rotation breaks this in API 19
     public void orientationChange_DuringEdit_NoDuplicate() throws IllegalStateException {
-        // Add a completed goal
+        // Add a archived goal
         createGoal(TITLE1, DESCRIPTION);
 
         // Open the goal in details view
@@ -473,11 +470,9 @@ public class GoalsScreenTest {
         // Rotate the screen
         TestUtils.rotateOrientation(getCurrentActivity());
 
-        // Edit goal title and description
+        // Edit goal mTitle and description
         onView(withId(R.id.add_goal_title))
-                .perform(replaceText(TITLE2), closeSoftKeyboard()); // Type new goal title
-        onView(withId(R.id.add_goal_description)).perform(replaceText(DESCRIPTION),
-                closeSoftKeyboard()); // Type new goal description and close the keyboard
+                .perform(replaceText(TITLE2), closeSoftKeyboard()); // Type new goal mTitle
 
         // Save the goal
         onView(withId(R.id.fab_edit_goal_done)).perform(click());
@@ -499,9 +494,9 @@ public class GoalsScreenTest {
     }
 
     @Test
-    public void noGoals_CompletedGoalsFilter_AddGoalViewNotVisible() {
+    public void noGoals_ArchivedGoalsFilter_AddGoalViewNotVisible() {
         // Given an empty list of goals, make sure "All goals" filter is on
-        viewCompletedGoals();
+        viewArchivedGoals();
 
         // Add goal View should be displayed
         onView(withId(R.id.noGoalsAdd)).check(matches(not(isDisplayed())));
@@ -526,27 +521,25 @@ public class GoalsScreenTest {
         onView(withText(R.string.nav_active)).perform(click());
     }
 
-    private void viewCompletedGoals() {
+    private void viewArchivedGoals() {
         onView(withId(R.id.menu_filter)).perform(click());
-        onView(withText(R.string.nav_completed)).perform(click());
+        onView(withText(R.string.nav_archived)).perform(click());
     }
 
     private void createGoal(String title, String description) {
         // Click on the add goal button
         onView(withId(R.id.fab_add_goal)).perform(click());
 
-        // Add goal title and description
+        // Add goal mTitle and description
         onView(withId(R.id.add_goal_title)).perform(typeText(title),
-                closeSoftKeyboard()); // Type new goal title
-        onView(withId(R.id.add_goal_description)).perform(typeText(description),
-                closeSoftKeyboard()); // Type new goal description and close the keyboard
+                closeSoftKeyboard()); // Type new goal mTitle
 
         // Save the goal
         onView(withId(R.id.fab_edit_goal_done)).perform(click());
     }
 
     private void clickCheckBoxForGoal(String title) {
-        onView(allOf(withId(R.id.complete), hasSibling(withText(title)))).perform(click());
+        onView(allOf(withId(R.id.archived), hasSibling(withText(title)))).perform(click());
     }
 
     private String getText(int stringId) {

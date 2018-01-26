@@ -17,6 +17,8 @@
 package com.beatboxchad.android.selfcaredashboard.goals;
 
 import android.content.Context;
+import android.databinding.Bindable;
+import android.databinding.ObservableField;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 
@@ -32,6 +34,9 @@ import java.sql.Date;
  * Fragment's actions listener.
  */
 public class GoalItemViewModel extends GoalViewModel {
+
+
+    public final ObservableField<Integer> mColor = new ObservableField<>();
 
     // This navigator is s wrapped in a WeakReference to avoid leaks because it has references to an
     // activity. There's no straightforward way to clear it for each item in a list adapter.
@@ -60,15 +65,17 @@ public class GoalItemViewModel extends GoalViewModel {
         }
     }
 
-    public void calcColor() {
-        if (touched.get() != null) {
-            long diff = new Date(System.currentTimeMillis()).getTime() - touched.get();
+    private void calcColor() {
+            long diff = new Date(System.currentTimeMillis()).getTime() - mTouched.get();
             float diffInDays = diff / 1000 / 60 / 60 / 24;
-            float percent = (diffInDays / interval.get());
-            float hue = polarity.get() ? 120 * percent : 120 - (120 * percent);
-            color.set(Color.HSVToColor(new float[]{hue, 1, 1}));
-        } else {
-            color.set(0);
-        }
+            float percent = (diffInDays / mInterval.get());
+            float hue = mPolarity.get() ? 120 * percent : 120 - (120 * percent);
+            mColor.set(Color.HSVToColor(new float[]{hue, 1, 1}));
+    }
+
+    @Bindable
+    public int getColor() {
+        calcColor();
+        return mColor.get();
     }
 }

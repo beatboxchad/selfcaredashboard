@@ -20,6 +20,8 @@
     <string name="edit_goal">Edit Goal</string>
     <string name="goal_archived">Goal archived</string>
     <string name="goal_marked_active">Goal marked active</string>
+    <string name="goal_polarity_chase">Chase</string>
+    <string name="goal_polarity_avoid">Avoid</string>
     <string name="loading_goals_error">Error while loading goals</string>
     <string name="archived_goals_cleared">Archived goals cleared</string>
     <string name="menu_filter">Filter</string>
@@ -28,7 +30,7 @@
     <string name="navigation_view_header_title">Goals</string>
     <string name="title_hint">Title</string>
     <string name="description_hint">Enter your goal here.</string>
-    <string name="empty_goal_message">TO DOs cannot be empty</string>
+    <string name="empty_goal_message">Goals cannot be empty</string>
     <string name="successfully_saved_goal_message">Goal saved</string>
     <string name="list_title">Goal List</string>
     <string name="statistics_title">Statistics</string>

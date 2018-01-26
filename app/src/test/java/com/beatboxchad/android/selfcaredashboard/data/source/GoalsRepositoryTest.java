@@ -45,7 +45,7 @@ import static org.mockito.Mockito.verify;
  */
 public class GoalsRepositoryTest {
 
-    private final static String GOAL_TITLE = "title";
+    private final static String GOAL_TITLE = "mTitle";
 
     private final static String GOAL_TITLE2 = "title2";
 
@@ -111,7 +111,7 @@ public class GoalsRepositoryTest {
 
     @Test
     public void saveGoal_savesGoalToServiceAPI() {
-        // Given a stub goal with title and description
+        // Given a stub goal with mTitle and description
         Goal newGoal = new Goal(GOAL_TITLE, "Some Goal Description");
 
         // When a goal is saved to the goals repository
@@ -125,7 +125,7 @@ public class GoalsRepositoryTest {
 
     @Test
     public void completeGoal_completesGoalToServiceAPIUpdatesCache() {
-        // Given a stub active goal with title and description added in the repository
+        // Given a stub active goal with mTitle and description added in the repository
         Goal newGoal = new Goal(GOAL_TITLE, "Some Goal Description");
         mGoalsRepository.saveGoal(newGoal);
 
@@ -141,7 +141,7 @@ public class GoalsRepositoryTest {
 
     @Test
     public void completeGoalId_completesGoalToServiceAPIUpdatesCache() {
-        // Given a stub active goal with title and description added in the repository
+        // Given a stub active goal with mTitle and description added in the repository
         Goal newGoal = new Goal(GOAL_TITLE, "Some Goal Description");
         mGoalsRepository.saveGoal(newGoal);
 
@@ -157,7 +157,7 @@ public class GoalsRepositoryTest {
 
     @Test
     public void activateGoal_activatesGoalToServiceAPIUpdatesCache() {
-        // Given a stub completed goal with title and description in the repository
+        // Given a stub completed goal with mTitle and description in the repository
         Goal newGoal = new Goal(GOAL_TITLE, "Some Goal Description", true);
         mGoalsRepository.saveGoal(newGoal);
 
@@ -173,7 +173,7 @@ public class GoalsRepositoryTest {
 
     @Test
     public void activateGoalId_activatesGoalToServiceAPIUpdatesCache() {
-        // Given a stub completed goal with title and description in the repository
+        // Given a stub completed goal with mTitle and description in the repository
         Goal newGoal = new Goal(GOAL_TITLE, "Some Goal Description", true);
         mGoalsRepository.saveGoal(newGoal);
 

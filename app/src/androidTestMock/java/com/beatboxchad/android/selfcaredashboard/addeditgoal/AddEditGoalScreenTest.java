@@ -97,7 +97,7 @@ public class AddEditGoalScreenTest {
         // Launch activity to add a new goal
         launchNewGoalActivity(null);
 
-        // Add invalid title and description combination
+        // Add invalid mTitle and description combination
         onView(withId(R.id.add_goal_title)).perform(clearText());
         onView(withId(R.id.add_goal_description)).perform(clearText());
         // Try to save the goal
@@ -112,13 +112,13 @@ public class AddEditGoalScreenTest {
         // Launch activity to add a new goal
         launchNewGoalActivity(null);
 
-        // Check that the toolbar shows the correct title
+        // Check that the toolbar shows the correct mTitle
         onView(withId(toolbar)).check(matches(withToolbarTitle(R.string.add_goal)));
 
         // Rotate activity
         TestUtils.rotateOrientation(mActivityTestRule.getActivity());
 
-        // Check that the toolbar title is persisted
+        // Check that the toolbar mTitle is persisted
         onView(withId(toolbar)).check(matches(withToolbarTitle(R.string.add_goal)));
     }
 
@@ -129,13 +129,13 @@ public class AddEditGoalScreenTest {
         //FakeGoalsRemoteDataSource.getInstance().addGoals(new Goal("Title1", "", GOAL_ID, false));
         launchNewGoalActivity(GOAL_ID);
 
-        // Check that the toolbar shows the correct title
+        // Check that the toolbar shows the correct mTitle
         onView(withId(toolbar)).check(matches(withToolbarTitle(R.string.edit_goal)));
 
         // Rotate activity
         TestUtils.rotateOrientation(mActivityTestRule.getActivity());
 
-        // check that the toolbar title is persisted
+        // check that the toolbar mTitle is persisted
         onView(withId(toolbar)).check(matches(withToolbarTitle(R.string.edit_goal)));
     }
 
@@ -151,7 +151,7 @@ public class AddEditGoalScreenTest {
     }
 
     /**
-     * Matches the toolbar title with a specific string resource.
+     * Matches the toolbar mTitle with a specific string resource.
      *
      * @param resourceId the ID of the string resource to match
      */
@@ -160,7 +160,7 @@ public class AddEditGoalScreenTest {
 
             @Override
             public void describeTo(Description description) {
-                description.appendText("with toolbar title from resource id: ");
+                description.appendText("with toolbar mTitle from resource id: ");
                 description.appendValue(resourceId);
             }
 

@@ -46,6 +46,8 @@ public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
 
     public final ObservableField<Boolean> polarity = new ObservableField<>();
 
+    public final ObservableField<Long> touched = new ObservableField<>();
+
     private final GoalsRepository mGoalsRepository;
 
     private final Context mContext;  // To avoid leaks, this must be an Application Context.

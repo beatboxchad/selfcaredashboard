@@ -47,7 +47,7 @@ import static org.mockito.Mockito.when;
  */
 public class GoalDetailViewModelTest {
 
-    private static final String TITLE_TEST = "title";
+    private static final String TITLE_TEST = "mTitle";
 
     private static final String DESCRIPTION_TEST = "description";
 
@@ -104,7 +104,7 @@ public class GoalDetailViewModelTest {
         setupViewModelRepositoryCallback();
 
         // Then verify that the view was notified
-        assertEquals(mGoalDetailViewModel.title.get(), mGoal.getTitle());
+        assertEquals(mGoalDetailViewModel.mTitle.get(), mGoal.getTitle());
         assertEquals(mGoalDetailViewModel.description.get(), mGoal.getDescription());
     }
 
@@ -169,7 +169,7 @@ public class GoalDetailViewModelTest {
         assertFalse(mGoalDetailViewModel.isDataAvailable());
 
         // Then goal detail UI is shown
-        assertEquals(mGoalDetailViewModel.title.get(), NO_DATA_STRING);
+        assertEquals(mGoalDetailViewModel.mTitle.get(), NO_DATA_STRING);
         assertEquals(mGoalDetailViewModel.description.get(), NO_DATA_DESC_STRING);
     }
 

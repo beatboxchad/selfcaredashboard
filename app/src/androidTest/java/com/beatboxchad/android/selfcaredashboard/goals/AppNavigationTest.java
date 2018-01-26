@@ -62,23 +62,6 @@ public class AppNavigationTest {
     public ActivityTestRule<GoalsActivity> mActivityTestRule =
             new ActivityTestRule<>(GoalsActivity.class);
 
-    @Test
-    public void clickOnStatisticsNavigationItem_ShowsStatisticsScreen() {
-        openStatisticsScreen();
-
-        // Check that statistics Activity was opened.
-        onView(withId(R.id.statistics)).check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void clickOnListNavigationItem_ShowsListScreen() {
-        openStatisticsScreen();
-
-        openGoalsScreen();
-
-        // Check that Goals Activity was opened.
-        onView(withId(R.id.goalsContainer)).check(matches(isDisplayed()));
-    }
 
     @Test
     public void clickOnAndroidHomeIcon_OpensNavigation() {

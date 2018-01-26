@@ -36,7 +36,12 @@ import java.util.List;
 @RunWith(AndroidJUnit4.class)
 public class GoalsDaoTest {
 
-    private static final Goal GOAL = new Goal("title", "description", "id", true);
+
+    private long DAY_IN_MS = 1000 * 60 * 60 * 24;
+    private long A_DAY = System.currentTimeMillis() - (1 * DAY_IN_MS);
+    private long A_MONTH = System.currentTimeMillis() - (30 * DAY_IN_MS);
+
+    Goal GOAL = new Goal("id", "eat a bucket of candy", false, 7, A_MONTH, false);
 
     private ToDoDatabase mDatabase;
 
@@ -62,7 +67,7 @@ public class GoalsDaoTest {
         Goal loaded = mDatabase.goalDao().getGoalById(GOAL.getId());
 
         // The loaded data contains the expected values
-        assertGoal(loaded, "id", "title", "description", true);
+        assertGoal(loaded, "id", "eat a bucket of candy", 7, true, false);
     }
 
     @Test
@@ -71,13 +76,13 @@ public class GoalsDaoTest {
         mDatabase.goalDao().insertGoal(GOAL);
 
         // When a goal with the same id is inserted
-        Goal newGoal = new Goal("title2", "description2", "id", true);
+        Goal newGoal = new Goal("id", "title2", false, 4, A_DAY, true);
         mDatabase.goalDao().insertGoal(newGoal);
         // When getting the goal by id from the database
         Goal loaded = mDatabase.goalDao().getGoalById(GOAL.getId());
 
         // The loaded data contains the expected values
-        assertGoal(loaded, "id", "title2", "description2", true);
+        assertGoal(loaded, "id", "title2", 4, false, true);
     }
 
     @Test
@@ -91,7 +96,7 @@ public class GoalsDaoTest {
         // There is only 1 goal in the database
         assertThat(goals.size(), is(1));
         // The loaded data contains the expected values
-        assertGoal(goals.get(0), "id", "title", "description", true);
+        assertGoal(goals.get(0), "id", "mTitle", 4, true, false);
     }
 
     @Test
@@ -100,14 +105,14 @@ public class GoalsDaoTest {
         mDatabase.goalDao().insertGoal(GOAL);
 
         // When the goal is updated
-        Goal updatedGoal = new Goal("title2", "description2", "id", true);
+        Goal updatedGoal = new Goal("id", "title2", true, 2, 2222, true);
         mDatabase.goalDao().updateGoal(updatedGoal);
 
         // When getting the goal by id from the database
         Goal loaded = mDatabase.goalDao().getGoalById("id");
 
         // The loaded data contains the expected values
-        assertGoal(loaded, "id", "title2", "description2", true);
+        assertGoal(loaded, "id", "title2", 2, true, true);
     }
 
     @Test
@@ -122,7 +127,7 @@ public class GoalsDaoTest {
         Goal loaded = mDatabase.goalDao().getGoalById("id");
 
         // The loaded data contains the expected values
-        assertGoal(loaded, GOAL.getId(), GOAL.getTitle(), GOAL.getDescription(), false);
+        assertGoal(loaded, GOAL.getId(), GOAL.getTitle(), GOAL.getInterval(), GOAL.getPolarity(), false);
     }
 
     @Test
@@ -168,11 +173,12 @@ public class GoalsDaoTest {
     }
 
     private void assertGoal(Goal goal, String id, String title,
-            String description, boolean archived) {
+                            int interval, boolean polarity, boolean archived) {
         assertThat(goal, notNullValue());
         assertThat(goal.getId(), is(id));
         assertThat(goal.getTitle(), is(title));
-        assertThat(goal.getDescription(), is(description));
-        assertThat(goal.isPolarity(), is(archived));
+        assertThat(goal.getInterval(), is(interval));
+        assertThat(goal.isArchived(), is(archived));
+        assertThat(goal.getPolarity(), is(polarity));
     }
 }

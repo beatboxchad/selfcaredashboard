@@ -37,17 +37,17 @@ public final class Goal {
     private final String mId;
 
     @Nullable
-    @ColumnInfo(name = "title")
+    @ColumnInfo(name = "mTitle")
     private final String mTitle;
 
-    @ColumnInfo(name = "polarity")
+    @ColumnInfo(name = "mPolarity")
     private final boolean mPolarity;
 
     @Nullable
-    @ColumnInfo(name = "interval")
+    @ColumnInfo(name = "mInterval")
     private final int mInterval;
 
-    @ColumnInfo(name = "touched")
+    @ColumnInfo(name = "mTouched")
     private final long mTouched;
 
 
@@ -188,6 +188,6 @@ public final class Goal {
 
     @Override
     public String toString() {
-        return "Goal with title " + mTitle;
+        return "Goal with mTitle " + mTitle;
     }
 }
