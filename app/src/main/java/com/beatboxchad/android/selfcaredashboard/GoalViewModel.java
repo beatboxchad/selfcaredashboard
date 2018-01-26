@@ -19,7 +19,6 @@ package com.beatboxchad.android.selfcaredashboard;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
 import android.databinding.Observable;
 import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
@@ -27,6 +26,9 @@ import android.support.annotation.Nullable;
 import com.beatboxchad.android.selfcaredashboard.data.Goal;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsDataSource;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -98,6 +100,13 @@ public abstract class GoalViewModel extends BaseObservable
     @Bindable
     public boolean getPolarity() {
         return mPolarity.get();
+    }
+
+    @Bindable
+    public String getTouchedDateString() {
+        SimpleDateFormat fmt = new SimpleDateFormat("EEE, d MMM yyyy, hh:mm aaa");
+        Date touched = new Date(mTouched.get());
+        return fmt.format(touched);
     }
 
     // "archived" is two-way bound, so in order to intercept the new value, use a
