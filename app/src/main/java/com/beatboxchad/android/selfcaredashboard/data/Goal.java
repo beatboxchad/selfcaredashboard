@@ -176,14 +176,12 @@ public final class Goal {
         return Objects.equal(mId, goal.mId) &&
                 Objects.equal(mTitle, goal.mTitle) &&
                 Objects.equal(mPolarity, goal.mPolarity) &&
-                Objects.equal(mInterval, goal.mInterval) &&
-                Objects.equal(mArchived, goal.mArchived) &&
-                Objects.equal(mTouched, goal.mTouched);
+                Objects.equal(mInterval, goal.mInterval);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mTitle, mPolarity, mInterval, mTouched, mArchived);
+        return Objects.hashCode(mId, mTitle, mPolarity, mInterval);
     }
 
     @Override

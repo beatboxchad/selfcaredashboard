@@ -29,6 +29,7 @@
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:background="@{viewmodel.archived ? @drawable/list_completed_touch_feedback : @drawable/touch_feedback}"
         android:onClick="@{() -> viewmodel.goalClicked()}"
+        android:onLongClick="@{(goal) -> viewmodel.goalLongClicked(goal)}"
         app:layout_constraintBottom_toBottomOf="@+id/archived"
         app:layout_constraintTop_toBottomOf="@+id/archived">
 

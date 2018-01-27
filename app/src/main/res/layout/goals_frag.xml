@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="@color/colorPrimaryDark"
             android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}">
 
             <TextView
@@ -66,6 +67,7 @@
             <ListView
                 android:id="@+id/goals_list"
                 app:items="@{viewmodel.items}"
+                android:theme="@style/Theme.AppCompat.Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

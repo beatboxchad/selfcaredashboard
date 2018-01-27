@@ -15,16 +15,14 @@
  */
 package com.beatboxchad.android.selfcaredashboard.addeditgoal;
 
-        import android.databinding.BindingAdapter;
-        import android.databinding.BindingMethod;
-        import android.databinding.BindingMethods;
-        import android.databinding.InverseBindingListener;
-        import android.databinding.InverseBindingMethod;
-        import android.databinding.InverseBindingMethods;
-        import android.widget.CompoundButton;
-        import android.widget.CompoundButton.OnCheckedChangeListener;
-        import android.widget.NumberPicker;
-        import android.widget.NumberPicker.OnValueChangeListener;
+import android.databinding.BindingAdapter;
+import android.databinding.BindingMethod;
+import android.databinding.BindingMethods;
+import android.databinding.InverseBindingListener;
+import android.databinding.InverseBindingMethod;
+import android.databinding.InverseBindingMethods;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 
 @BindingMethods({
         @BindingMethod(type = NumberPicker.class, attribute = "android:format", method = "setFormatter"),

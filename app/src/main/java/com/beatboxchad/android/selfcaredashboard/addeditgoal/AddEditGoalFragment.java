@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.NumberPicker;
 
 import com.beatboxchad.android.selfcaredashboard.R;
 import com.beatboxchad.android.selfcaredashboard.databinding.AddgoalFragBinding;
@@ -78,6 +79,8 @@ public class AddEditGoalFragment extends Fragment {
         setupSnackbar();
 
         setupActionBar();
+
+//        setupIntervalPicker();
     }
 
     @Nullable
@@ -88,6 +91,8 @@ public class AddEditGoalFragment extends Fragment {
         if (mViewDataBinding == null) {
             mViewDataBinding = AddgoalFragBinding.bind(root);
         }
+
+        setupIntervalPicker((NumberPicker) root.findViewById(R.id.add_goal_interval));
 
         mViewDataBinding.setViewmodel(mViewModel);
 
@@ -125,6 +130,18 @@ public class AddEditGoalFragment extends Fragment {
                 mViewModel.saveGoal();
             }
         });
+    }
+
+    private void setupIntervalPicker(NumberPicker np) {
+
+        //Set the minimum value of NumberPicker
+        np.setMinValue(1);
+        //Specify the maximum value/number of NumberPicker
+        np.setMaxValue(60);
+
+        //Gets whether the selector wheel wraps when reaching the min/max value.
+        np.setWrapSelectorWheel(true);
+
     }
 
     private void setupActionBar() {

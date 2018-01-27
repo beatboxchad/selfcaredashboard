@@ -17,6 +17,7 @@
 package com.beatboxchad.android.selfcaredashboard.addeditgoal;
 
 import android.content.Context;
+import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.annotation.Nullable;
@@ -42,11 +43,11 @@ public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
 
     public final ObservableField<String> snackbarText = new ObservableField<>();
 
-    public final ObservableField<Integer> interval = new ObservableField<>();
+    public final ObservableField<Integer> interval = new ObservableField<>(1);
 
-    public final ObservableField<Boolean> polarity = new ObservableField<>();
+    public final ObservableField<Boolean> polarity = new ObservableField<>(false);
 
-    public final ObservableField<Long> touched = new ObservableField<>();
+    public final ObservableField<Boolean> archived = new ObservableField<>(false);
 
     private final GoalsRepository mGoalsRepository;
 
@@ -95,14 +96,45 @@ public class AddEditGoalViewModel implements GoalsDataSource.GetGoalCallback {
         mGoalsRepository.getGoal(goalId, this);
     }
 
+    public int getInterval() {
+        return interval.get();
+    }
+
+    public void setInterval(int days) {
+        interval.set(days);
+    }
+
+    public boolean getPolarity() {
+        return polarity.get();
+    }
+
+    public void setPolarity(boolean gpol) {
+        polarity.set(gpol);
+    }
+
+    public String getTitle() {
+        return title.get();
+    }
+
+    public void setTitle(String gtitle) {
+        title.set(gtitle);
+    }
+
     @Override
     public void onGoalLoaded(Goal goal) {
         title.set(goal.getTitle());
+        interval.set(goal.getInterval());
+        polarity.set(goal.getPolarity());
+        archived.set(goal.isArchived());
         dataLoading.set(false);
         mIsDataLoaded = true;
 
         // Note that there's no need to notify that the values changed because we're using
         // ObservableFields.
+    }
+
+    public void onIntervalChange(int newv) {
+        interval.set(newv);
     }
 
     @Override

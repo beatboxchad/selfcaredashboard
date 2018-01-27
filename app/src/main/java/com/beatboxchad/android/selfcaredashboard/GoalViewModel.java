@@ -171,6 +171,20 @@ public abstract class GoalViewModel extends BaseObservable
         }
     }
 
+
+    public void touchGoal() {
+        Goal goal = mGoalObservable.get();
+        Goal newGoal = new Goal.Builder(goal.getId())
+                .setTitle(goal.getTitle())
+                .setInterval(goal.getInterval())
+                .setPolarity(goal.getPolarity())
+                .setArchived(goal.isArchived())
+                .setTouched(System.currentTimeMillis())
+                .build();
+        mGoalObservable.set(newGoal);
+        mGoalsRepository.saveGoal(newGoal);
+    }
+
     public void onRefresh() {
         if (mGoalObservable.get() != null) {
             start(mGoalObservable.get().getId());

@@ -21,6 +21,7 @@ import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.beatboxchad.android.selfcaredashboard.GoalViewModel;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
@@ -65,12 +66,19 @@ public class GoalItemViewModel extends GoalViewModel {
         }
     }
 
+    public boolean goalLongClicked(View view) {
+        touchGoal();
+        calcColor();
+        return true;
+    }
+
     private void calcColor() {
             long diff = new Date(System.currentTimeMillis()).getTime() - mTouched.get();
             float diffInDays = diff / 1000 / 60 / 60 / 24;
             float percent = (diffInDays / mInterval.get());
-            float hue = mPolarity.get() ? 120 * percent : 120 - (120 * percent);
+            float hue = mPolarity.get() ? 120 - (120 * percent) : 120 * percent;
             mColor.set(Color.HSVToColor(new float[]{hue, 1, 1}));
+            notifyChange();
     }
 
     @Bindable
