@@ -23,6 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import com.beatboxchad.android.selfcaredashboard.data.Goal;
 
@@ -38,19 +39,38 @@ public class GoalsDaoTest {
 
 
     private long DAY_IN_MS = 1000 * 60 * 60 * 24;
-    private long A_DAY = System.currentTimeMillis() - (1 * DAY_IN_MS);
-    private long A_MONTH = System.currentTimeMillis() - (30 * DAY_IN_MS);
+    private long A_DAY_AGO = System.currentTimeMillis() - (1 * DAY_IN_MS);
+    private long A_WEEK_AGO = System.currentTimeMillis() - (7 * DAY_IN_MS);
 
-    Goal GOAL = new Goal("id", "eat a bucket of candy", false, 7, A_MONTH, false);
+    private String ID = "12345booya";
+    private String TITLE = "eat a bucket of candy";
+    private String TITLE2 = "shit a bucket of candy";
+    private boolean POLARITY = false;
+    private boolean POLARITY2 = true;
+    private int INTERVAL = 7;
+    private int INTERVAL2 = 14;
+    private boolean ARCHIVED = false;
+    private boolean ARCHIVED2 = true;
+    private long TOUCHED = A_DAY_AGO;
+    private long TOUCHED2 = A_WEEK_AGO;
 
-    private ToDoDatabase mDatabase;
+
+    Goal GOAL = new Goal.Builder(ID)
+            .setTitle(TITLE)
+            .setInterval(INTERVAL)
+            .setPolarity(POLARITY)
+            .setTouched(TOUCHED)
+            .setArchived(ARCHIVED)
+            .build();
+
+    private SelfCareDatabase mDatabase;
 
     @Before
     public void initDb() {
         // using an in-memory database because the information stored here disappears when the
         // process is killed
         mDatabase = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
-                ToDoDatabase.class).build();
+                SelfCareDatabase.class).build();
     }
 
     @After
@@ -67,7 +87,7 @@ public class GoalsDaoTest {
         Goal loaded = mDatabase.goalDao().getGoalById(GOAL.getId());
 
         // The loaded data contains the expected values
-        assertGoal(loaded, "id", "eat a bucket of candy", 7, true, false);
+        assertGoal(loaded, ID, TITLE, INTERVAL, POLARITY, ARCHIVED, TOUCHED);
     }
 
     @Test
@@ -76,13 +96,20 @@ public class GoalsDaoTest {
         mDatabase.goalDao().insertGoal(GOAL);
 
         // When a goal with the same id is inserted
-        Goal newGoal = new Goal("id", "title2", false, 4, A_DAY, true);
+        Goal newGoal = new Goal.Builder(ID)
+                .setTitle(TITLE2)
+                .setPolarity(POLARITY2)
+                .setInterval(INTERVAL2)
+                .setArchived(ARCHIVED2)
+                .setTouched(TOUCHED2)
+                .build();
+
         mDatabase.goalDao().insertGoal(newGoal);
         // When getting the goal by id from the database
         Goal loaded = mDatabase.goalDao().getGoalById(GOAL.getId());
 
         // The loaded data contains the expected values
-        assertGoal(loaded, "id", "title2", 4, false, true);
+        assertGoal(loaded, ID, TITLE2, INTERVAL2, POLARITY2, ARCHIVED2, TOUCHED2);
     }
 
     @Test
@@ -96,7 +123,7 @@ public class GoalsDaoTest {
         // There is only 1 goal in the database
         assertThat(goals.size(), is(1));
         // The loaded data contains the expected values
-        assertGoal(goals.get(0), "id", "mTitle", 4, true, false);
+        assertGoal(goals.get(0), ID, TITLE, INTERVAL, POLARITY, ARCHIVED, TOUCHED);
     }
 
     @Test
@@ -105,14 +132,21 @@ public class GoalsDaoTest {
         mDatabase.goalDao().insertGoal(GOAL);
 
         // When the goal is updated
-        Goal updatedGoal = new Goal("id", "title2", true, 2, 2222, true);
+        Goal updatedGoal = new Goal.Builder(ID)
+                .setTitle(TITLE2)
+                .setPolarity(POLARITY2)
+                .setInterval(INTERVAL2)
+                .setArchived(ARCHIVED2)
+                .setTouched(TOUCHED2)
+                .build();
+
         mDatabase.goalDao().updateGoal(updatedGoal);
 
         // When getting the goal by id from the database
-        Goal loaded = mDatabase.goalDao().getGoalById("id");
+        Goal loaded = mDatabase.goalDao().getGoalById(ID);
 
         // The loaded data contains the expected values
-        assertGoal(loaded, "id", "title2", 2, true, true);
+        assertGoal(loaded, ID, TITLE2, INTERVAL2, POLARITY2, ARCHIVED2, TOUCHED2);
     }
 
     @Test
@@ -121,13 +155,13 @@ public class GoalsDaoTest {
         mDatabase.goalDao().insertGoal(GOAL);
 
         // When the goal is updated
-        mDatabase.goalDao().updateArchived(GOAL.getId(), false);
+        mDatabase.goalDao().updateArchived(GOAL.getId(), true);
 
         // When getting the goal by id from the database
-        Goal loaded = mDatabase.goalDao().getGoalById("id");
+        Goal loaded = mDatabase.goalDao().getGoalById(ID);
 
         // The loaded data contains the expected values
-        assertGoal(loaded, GOAL.getId(), GOAL.getTitle(), GOAL.getInterval(), GOAL.getPolarity(), false);
+        assertGoal(loaded, GOAL.getId(), GOAL.getTitle(), GOAL.getInterval(), GOAL.getPolarity(), true, GOAL.getTouched());
     }
 
     @Test
@@ -160,25 +194,36 @@ public class GoalsDaoTest {
 
     @Test
     public void deleteArchivedGoalsAndGettingGoals() {
-        //Given a archived goal inserted
-        mDatabase.goalDao().insertGoal(GOAL);
+
+
+        //When getting the goals
+        List<Goal> goals = mDatabase.goalDao().getGoals();
+
+        for (Goal goal : goals) {
+            mDatabase.goalDao().insertGoal(new Goal.Builder(goal)
+                    .setArchived(true).build());
+        }
 
         //When deleting archived goals
         mDatabase.goalDao().deleteArchivedGoals();
 
-        //When getting the goals
-        List<Goal> goals = mDatabase.goalDao().getGoals();
         // The list is empty
         assertThat(goals.size(), is(0));
     }
 
-    private void assertGoal(Goal goal, String id, String title,
-                            int interval, boolean polarity, boolean archived) {
+    private void assertGoal(Goal goal,
+                            String id,
+                            String title,
+                            int interval,
+                            boolean polarity,
+                            boolean archived,
+                            long touched) {
         assertThat(goal, notNullValue());
         assertThat(goal.getId(), is(id));
         assertThat(goal.getTitle(), is(title));
         assertThat(goal.getInterval(), is(interval));
         assertThat(goal.isArchived(), is(archived));
         assertThat(goal.getPolarity(), is(polarity));
+        assertThat(goal.getTouched(), is(touched));
     }
 }

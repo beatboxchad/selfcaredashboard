@@ -309,8 +309,13 @@ public class GoalsScreenTest {
         // Click on the goal on the list
         onView(withText(TITLE1)).perform(click());
 
+        onView(withId(R.id.fab_add_goal)).perform(click());
+
         // Click on the checkbox in goal details screen
         onView(withId(R.id.goal_detail_archived)).perform(click());
+
+        // Click on the navigation up button to go back to the list
+        onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());
 
         // Click on the navigation up button to go back to the list
         onView(withContentDescription(getToolbarNavigationContentDescription())).perform(click());

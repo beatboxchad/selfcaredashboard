@@ -25,6 +25,8 @@ import android.support.annotation.Nullable;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 
+import java.util.UUID;
+
 /**
  * Immutable model class for a Goal.
  */
@@ -37,19 +39,18 @@ public final class Goal {
     private final String mId;
 
     @Nullable
-    @ColumnInfo(name = "mTitle")
+    @ColumnInfo(name = "title")
     private final String mTitle;
 
-    @ColumnInfo(name = "mPolarity")
+    @ColumnInfo(name = "polarity")
     private final boolean mPolarity;
 
     @Nullable
-    @ColumnInfo(name = "mInterval")
+    @ColumnInfo(name = "interval")
     private final int mInterval;
 
-    @ColumnInfo(name = "mTouched")
+    @ColumnInfo(name = "touched")
     private final long mTouched;
-
 
     @ColumnInfo(name = "archived")
     private final boolean mArchived;
@@ -77,8 +78,19 @@ public final class Goal {
         private boolean mArchived;
         private long mTouched;
 
+
+        public Builder() {this.mId = UUID.randomUUID().toString();}
         public Builder(String id) {
             this.mId = id;
+        }
+        public Builder(UUID id) {this.mId = id.toString();}
+        public Builder(Goal goal) {
+            this.mId = goal.getId();
+            this.mInterval = goal.getInterval();
+            this.mPolarity = goal.getPolarity();
+            this.mTouched = goal.getTouched();
+            this.mArchived = goal.isArchived();
+            this.mTitle = goal.getTitle();
         }
 
         public Builder setTitle(String title) {
@@ -186,6 +198,6 @@ public final class Goal {
 
     @Override
     public String toString() {
-        return "Goal with mTitle " + mTitle;
+        return "Goal with title " + mTitle;
     }
 }
