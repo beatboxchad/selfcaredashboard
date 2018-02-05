@@ -63,7 +63,7 @@ public class AddEditGoalActivity extends AppCompatActivity implements AddEditGoa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.addgoal_act);
+        setContentView(R.layout.add_goal_act);
 
         // Set up the toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

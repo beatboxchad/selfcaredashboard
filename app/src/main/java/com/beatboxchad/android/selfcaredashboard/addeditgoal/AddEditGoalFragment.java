@@ -30,7 +30,7 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 
 import com.beatboxchad.android.selfcaredashboard.R;
-import com.beatboxchad.android.selfcaredashboard.databinding.AddgoalFragBinding;
+import com.beatboxchad.android.selfcaredashboard.databinding.AddGoalFragBinding;
 import com.beatboxchad.android.selfcaredashboard.util.SnackbarUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -44,7 +44,7 @@ public class AddEditGoalFragment extends Fragment {
 
     private AddEditGoalViewModel mViewModel;
 
-    private AddgoalFragBinding mViewDataBinding;
+    private AddGoalFragBinding mViewDataBinding;
 
     private Observable.OnPropertyChangedCallback mSnackbarCallback;
 
@@ -80,16 +80,15 @@ public class AddEditGoalFragment extends Fragment {
 
         setupActionBar();
 
-//        setupIntervalPicker();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.addgoal_frag, container, false);
+        final View root = inflater.inflate(R.layout.add_goal_frag, container, false);
         if (mViewDataBinding == null) {
-            mViewDataBinding = AddgoalFragBinding.bind(root);
+            mViewDataBinding = AddGoalFragBinding.bind(root);
         }
 
         setupIntervalPicker((NumberPicker) root.findViewById(R.id.add_goal_interval));
