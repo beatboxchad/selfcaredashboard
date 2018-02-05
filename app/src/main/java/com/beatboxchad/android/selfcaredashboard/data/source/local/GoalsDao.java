@@ -37,7 +37,7 @@ public interface GoalsDao {
      *
      * @return all goals.
      */
-    @Query("SELECT * FROM Goals")
+    @Query("SELECT * FROM goals")
     List<Goal> getGoals();
 
     /**
@@ -46,7 +46,7 @@ public interface GoalsDao {
      * @param goalId the goal id.
      * @return the goal with goalId.
      */
-    @Query("SELECT * FROM Goals WHERE entryid = :goalId")
+    @Query("SELECT * FROM goals WHERE entryid = :goalId")
     Goal getGoalById(String goalId);
 
     /**
@@ -80,13 +80,13 @@ public interface GoalsDao {
      *
      * @return the number of goals deleted. This should always be 1.
      */
-    @Query("DELETE FROM Goals WHERE entryid = :goalId")
+    @Query("DELETE FROM goals WHERE entryid = :goalId")
     int deleteGoalById(String goalId);
 
     /**
      * Delete all goals.
      */
-    @Query("DELETE FROM Goals")
+    @Query("DELETE FROM goals")
     void deleteGoals();
 
     /**
@@ -94,6 +94,6 @@ public interface GoalsDao {
      *
      * @return the number of goals deleted.
      */
-    @Query("DELETE FROM Goals WHERE archived = 1")
+    @Query("DELETE FROM goals WHERE archived = 1")
     int deleteArchivedGoals();
 }
