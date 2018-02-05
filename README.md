@@ -25,4 +25,4 @@ At the top, I have an aggregate status somewhere between red and green. When the
 If you know how to compile and install Android APK's, take it for a spin! I'll update this page with instructions once it's beta-ready. Otherwise, wait awhile. I have plans to make an iOS version and do all the things you gotta do to properly release the app on both platforms. Most of my friends who expressed excitement about using the app are on iOS.
 
 
-All this here writing, code, and design is Copyright 2018 Chad Cassady unless otherwise stated.
+All this here writing, code, and design is Copyright 2016 Chad Cassady unless otherwise stated.
