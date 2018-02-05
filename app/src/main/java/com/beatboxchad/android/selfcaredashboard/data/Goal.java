@@ -18,7 +18,6 @@ package com.beatboxchad.android.selfcaredashboard.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,6 +42,7 @@ public final class Goal {
     @ColumnInfo(name = "title")
     private final String mTitle;
 
+    @Nullable
     @ColumnInfo(name = "polarity")
     private final boolean mPolarity;
 
@@ -50,9 +50,11 @@ public final class Goal {
     @ColumnInfo(name = "interval")
     private final int mInterval;
 
+    @Nullable
     @ColumnInfo(name = "touched")
     private final long mTouched;
 
+    @Nullable
     @ColumnInfo(name = "archived")
     private final boolean mArchived;
 
@@ -83,7 +85,9 @@ public final class Goal {
         public Builder(String id) {
             this.mId = id;
         }
+
         public Builder(UUID id) {this.mId = id.toString();}
+
         public Builder(Goal goal) {
             this.mId = goal.getId();
             this.mInterval = goal.getInterval();
@@ -124,7 +128,6 @@ public final class Goal {
 
     }
 
-    @Ignore
     private Goal(Builder builder) {
         mId = builder.mId;
         mTitle = builder.mTitle;
