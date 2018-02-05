@@ -141,12 +141,9 @@ public class GoalsRepository implements GoalsDataSource {
         mGoalsRemoteDataSource.archiveGoal(goal);
         mGoalsLocalDataSource.archiveGoal(goal);
 
-        Goal archivedGoal = new Goal(goal.getId(),
-                goal.getTitle(),
-                goal.getPolarity(),
-                goal.getInterval(),
-                goal.getTouched(),
-                goal.isArchived());
+        Goal archivedGoal = new Goal.Builder(goal)
+                .setArchived(true)
+                .build();
 
         // Do in memory cache update to keep the app UI up to date
         if (mCachedGoals == null) {
@@ -167,12 +164,8 @@ public class GoalsRepository implements GoalsDataSource {
         mGoalsRemoteDataSource.activateGoal(goal);
         mGoalsLocalDataSource.activateGoal(goal);
 
-        Goal activeGoal = new Goal(goal.getId(),
-                goal.getTitle(),
-                goal.getPolarity(),
-                goal.getInterval(),
-                goal.getTouched(),
-                false);
+        Goal activeGoal = new Goal.Builder(goal)
+                .setArchived(false).build();
         // Do in memory cache update to keep the app UI up to date
         if (mCachedGoals == null) {
             mCachedGoals = new LinkedHashMap<>();
