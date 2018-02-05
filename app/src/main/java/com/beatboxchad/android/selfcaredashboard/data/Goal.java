@@ -18,6 +18,7 @@ package com.beatboxchad.android.selfcaredashboard.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -54,7 +55,6 @@ public final class Goal {
 
     @ColumnInfo(name = "archived")
     private final boolean mArchived;
-
 
     public Goal(@NonNull String id,
                 @Nullable String title,
@@ -124,6 +124,7 @@ public final class Goal {
 
     }
 
+    @Ignore
     private Goal(Builder builder) {
         mId = builder.mId;
         mTitle = builder.mTitle;
@@ -143,7 +144,6 @@ public final class Goal {
     public String getTitle() {
         return mTitle;
     }
-
 
     @Nullable
     public String getTitleForList() {
