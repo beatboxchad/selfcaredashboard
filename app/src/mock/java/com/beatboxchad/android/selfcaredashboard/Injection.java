@@ -22,7 +22,7 @@ import android.support.annotation.NonNull;
 import com.beatboxchad.android.selfcaredashboard.data.FakeGoalsRemoteDataSource;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsDataSource;
 import com.beatboxchad.android.selfcaredashboard.data.source.GoalsRepository;
-import com.beatboxchad.android.selfcaredashboard.data.source.local.ToDoDatabase;
+import com.beatboxchad.android.selfcaredashboard.data.source.local.SelfCareDatabase;
 import com.beatboxchad.android.selfcaredashboard.data.source.local.GoalsLocalDataSource;
 import com.beatboxchad.android.selfcaredashboard.util.AppExecutors;
 
@@ -37,7 +37,7 @@ public class Injection {
 
     public static GoalsRepository provideGoalsRepository(@NonNull Context context) {
         checkNotNull(context);
-        ToDoDatabase database = ToDoDatabase.getInstance(context);
+        SelfCareDatabase database = SelfCareDatabase.getInstance(context);
         return GoalsRepository.getInstance(FakeGoalsRemoteDataSource.getInstance(),
                 GoalsLocalDataSource.getInstance(new AppExecutors(),
                         database.goalDao()));
