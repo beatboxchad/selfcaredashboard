@@ -16,7 +16,7 @@ For me personally, no matter what's going on I should:
 ### Using the Self Care Dashboard
 When I go for a run, I long-click the 'go for a run' entry on dashboard. It turns green. Over its configured interval of 4 days, it turns red.
 
-When I eat sweets, I activate that entry. Since the polarity of this goal is 'avoid', it turns red. Over the configured interval of 7 days, it smoothly fades to red.
+When I eat sweets, I activate that entry. Since the polarity of this goal is 'avoid', it turns red. Over the configured interval of 7 days, it smoothly fades to green.
 
 At the top, I have an aggregate status somewhere between red and green. When the brain purgatory hits and I can't think in a straight line even if to save my job, I can glance at that score and choose the reddest item. "Say, I haven't degaussed my brain with a long run in a week!" Well, even if I accomplish nothing else today, I'll put all my reserves of gumption toward that, get a shower afterward (hey! that's two of em green!) and regroup. If I don't get my wits back today, I'll surely wake up in a better state tomorrow than I otherwise would have, and THEN I can do my GTD weekly review.
 
