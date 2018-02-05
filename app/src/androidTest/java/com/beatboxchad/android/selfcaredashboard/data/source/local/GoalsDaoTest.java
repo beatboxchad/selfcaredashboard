@@ -35,10 +35,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public class GoalsDaoTest {
-
-
     private long DAY_IN_MS = 1000 * 60 * 60 * 24;
-    private long A_DAY_AGO = System.currentTimeMillis() - (1 * DAY_IN_MS);
+    private long A_DAY_AGO = System.currentTimeMillis() - (DAY_IN_MS);
     private long A_WEEK_AGO = System.currentTimeMillis() - (7 * DAY_IN_MS);
 
     private String ID = "12345booya";
@@ -193,7 +191,6 @@ public class GoalsDaoTest {
 
     @Test
     public void deleteArchivedGoalsAndGettingGoals() {
-
 
         //When getting the goals
         List<Goal> goals = mDatabase.goalDao().getGoals();
